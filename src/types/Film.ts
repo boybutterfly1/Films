@@ -1,10 +1,9 @@
-export type Film ={
-    id:number,
-    title:string,
-    genre:string,
-    description:string,
-    release_date:string,
-    poster_path:string,
-    backdrop_path:string,
-    rating:number
+export type Film = {
+    id: number | null,
+    title: string | null,
+    genres?: Array<string | null>,
+    synopsis: string | null,
+    year: string | null,
+    large_cover_image: string,
+    rating: number | null
 }

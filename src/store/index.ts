@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia'
-import axios from 'axios';
 import { Film } from '@/types/Film'
+import apiFilms from '@/api/films'
 
 export const useFilmsStore = defineStore('films', {
   state: () => ({
-    films: [] as Film[],
+    films: null as Film[] | null,
+    page: 1,
+    limit: 10,
+    totalPages: 0
   }),
 
   getters: {
@@ -12,10 +15,19 @@ export const useFilmsStore = defineStore('films', {
   },
 
   actions: {
-    async getFilms() {
+    async fetchFilms() {
       try {
-        const response = await axios.get('')
-        this.films = response.data
+        const response = await apiFilms.getFilms(this.limit, this.page)
+        this.films = response.data.data.movies
+      } catch (error) {
+        alert(error)
+      }
+    },
+    async fetchMoreFilms() {
+      try {
+        this.page += 1
+        const response = await apiFilms.getFilms(this.limit, this.page)
+        this.films = [...(this.films || []), ...(response.data.data.movies || [])]
       } catch (error) {
         alert(error)
       }
