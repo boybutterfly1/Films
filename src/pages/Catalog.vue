@@ -10,8 +10,8 @@ const filmsStore = useFilmsStore()
 
 <template>
   <div>
-    <FilmsList />
-    <Pagination />
+    <films-list />
+    <pagination />
   </div>
 </template>
 
