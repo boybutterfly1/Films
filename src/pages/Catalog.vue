@@ -5,7 +5,7 @@ import FilmsList from '@/components/FilmsList.vue'
 
 <template>
   <div>
-    <films-list />
+    <FilmsList />
   </div>
 </template>
 
