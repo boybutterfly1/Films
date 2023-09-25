@@ -15,19 +15,12 @@ export const useFilmsStore = defineStore('films', {
   },
 
   actions: {
-    async fetchFilms() {
+    async fetchFilms(currPage: number) {
       try {
+        this.page = currPage
         const response = await apiFilms.getFilms(this.limit, this.page)
         this.films = response.data.data.movies
-      } catch (error) {
-        alert(error)
-      }
-    },
-    async fetchMoreFilms() {
-      try {
-        this.page += 1
-        const response = await apiFilms.getFilms(this.limit, this.page)
-        this.films = [...(this.films || []), ...(response.data.data.movies || [])]
+        this.totalPages = Math.ceil(response.data.data.movie_count / this.limit)
       } catch (error) {
         alert(error)
       }
