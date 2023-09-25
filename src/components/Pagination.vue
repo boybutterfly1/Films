@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useFilmsStore } from '@/store/index'
 
 const filmsStore = useFilmsStore()
@@ -41,7 +41,6 @@ onMounted(() => {
       v-for="page in visPages"
       :key="page"
       @click="changePage(page)"
-
     >
       {{ page }}
     </button>

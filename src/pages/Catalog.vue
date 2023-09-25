@@ -11,7 +11,6 @@ const filmsStore = useFilmsStore()
 <template>
   <div>
     <films-list />
-    <pagination />
   </div>
 </template>
 
