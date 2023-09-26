@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useFilmsStore } from '@/store/index'
 import FilmsItem from '@/components/FilmsItem.vue'
-import PaginationNew from '@/components/PaginationNew.vue'
+import Pagination from '@/components/Pagination.vue'
 import { onMounted } from 'vue';
 
 const filmsStore = useFilmsStore()
@@ -13,13 +13,13 @@ onMounted(() => {
 
 <template>
   <div v-if="filmsStore.loading==false">
-    <div class="films">
+    <div class="container">
     <films-item
       v-for="film in filmsStore.films"
       :film="film"
     />
     </div>
-    <pagination-new
+    <pagination
       @changePage="filmsStore.fetchFilms"
       :totalPages="filmsStore.totalPages"
     />
@@ -28,9 +28,11 @@ onMounted(() => {
   
 </template>
 
-<style lang="scss">
-.films {
-  display: flex;
-  flex-wrap: wrap;
+<style lang="scss" scoped>
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+  padding: 30px;
 }
 </style>

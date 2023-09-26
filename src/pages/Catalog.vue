@@ -3,11 +3,10 @@ import FilmsList from '@/components/FilmsList.vue'
 </script>
 
 <template>
-  <div>
+  <div class="catalog">
     <FilmsList />
   </div>
 </template>
 
 <style lang="scss">
-
 </style>

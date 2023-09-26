@@ -4,6 +4,6 @@ export type Film = {
     genres?: Array<string | null>,
     synopsis: string | null,
     year: string | null,
-    large_cover_image: string,
+    medium_cover_image: string,
     rating: number | null
 }

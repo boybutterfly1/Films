@@ -6,9 +6,10 @@ export const useFilmsStore = defineStore('films', {
   state: () => ({
     films: null as Film[] | null,
     page: 1,
-    limit: 10,
+    limit: 30,
     totalPages: 0,
-    loading: true
+    loading: true,
+    images: false
   }),
 
   getters: {
@@ -16,8 +17,9 @@ export const useFilmsStore = defineStore('films', {
   },
 
   actions: {
-    async fetchFilms(page?: number) {
+    async fetchFilms(page?: number)  {
       try {
+        this.images = false;
         if (page) this.page = page
         const response = await apiFilms.getFilms(this.limit, this.page)
         this.films = response.data.data.movies
@@ -26,6 +28,7 @@ export const useFilmsStore = defineStore('films', {
         alert(error)
       } finally {
         this.loading = false
+        this.images = true
       }
     }
   }
