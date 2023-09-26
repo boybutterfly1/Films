@@ -4,12 +4,13 @@ import apiFilms from '@/api/films'
 
 export const useFilmsStore = defineStore('films', {
   state: () => ({
-    films: null as Film[] | null,
+    films: [] as Film[],
     page: 1,
     limit: 30,
     totalPages: 0,
     loading: true,
-    images: false
+    images: false,
+    saved: [] as Film[]
   }),
 
   getters: {
@@ -24,12 +25,23 @@ export const useFilmsStore = defineStore('films', {
         const response = await apiFilms.getFilms(this.limit, this.page)
         this.films = response.data.data.movies
         this.totalPages = Math.ceil(response.data.data.movie_count / this.limit)
+        if (this.films) {
+          this.films.forEach((film) => {film.saved = false})
+        }
       } catch (error) {
         alert(error)
       } finally {
         this.loading = false
         this.images = true
       }
+    },
+    makeSaved(id: number) {
+      this.films = this.films.map((f) => {
+        if (f.id === id) {
+          f.saved = true
+        }
+        return f
+      })
     }
   }
 })

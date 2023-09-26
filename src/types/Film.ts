@@ -1,9 +1,10 @@
 export type Film = {
-    id: number | null,
+    id: number,
     title: string | null,
-    genres?: Array<string | null>,
+    genres: Array<string | null>,
     synopsis: string | null,
     year: string | null,
     medium_cover_image: string,
-    rating: number | null
+    rating?: number | null,
+    saved: boolean
 }
