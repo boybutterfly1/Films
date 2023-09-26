@@ -6,7 +6,7 @@ export const useFilmsStore = defineStore('films', {
   state: () => ({
     films: [] as Film[],
     page: 1,
-    limit: 30,
+    limit: 10,
     totalPages: 0,
     loading: true,
     images: false,
@@ -36,12 +36,7 @@ export const useFilmsStore = defineStore('films', {
       }
     },
     makeSaved(id: number) {
-      this.films = this.films.map((f) => {
-        if (f.id === id) {
-          f.saved = true
-        }
-        return f
-      })
+      this.saved.push(this.films.filter((f) => f.id === id)[0])
     }
   }
 })

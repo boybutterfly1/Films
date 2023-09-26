@@ -12,7 +12,6 @@ const saveImg = ref('https://img.icons8.com/?size=512&id=25157&format=png')
 const unsaveImg = ref('https://img.icons8.com/?size=512&id=26083&format=png')
 
 
-
 </script>
 
 <template>
@@ -25,7 +24,7 @@ const unsaveImg = ref('https://img.icons8.com/?size=512&id=26083&format=png')
       <span>Year: {{ film.year }}</span>
       <span>Rating: {{ film.rating }}</span>
     </div>
-    <img v-if="film.saved == false" class="star" :src="saveImg" alt="save" @click="filmsStore.makeSaved(film.id)"/>
+    <img v-if="!filmsStore.saved.includes(film)" class="star" :src="saveImg" alt="save" @click="filmsStore.makeSaved(film.id)"/>
     <img v-else class="star" :src="unsaveImg" alt="unsave" @click="filmsStore.makeSaved(film.id)"/>
   </div>
 </template>

@@ -9,16 +9,17 @@ const currentPage = ref(1)
 const changePage = (page: number, emit: (event: string, payload?: any) => void) => {
   if (props.totalPages > 10 && page > 5 && pagPages.value) {
     const newVisPages = []
-    for (let i = page - 4; i <= page + 5; i++) {
+    for (let i = page - 4; i <= page + 5 && i <= props.totalPages; i++) {
       newVisPages.push(i)
     }
     pagPages.value = newVisPages
-  }  else {
-    pagPages.value = Array.from({ length: 10}, (_, i) => i + 1)
+  } else {
+    pagPages.value = Array.from({ length: 10 }, (_, i) => i + 1)
   }
   emit('changePage', page)
   currentPage.value = page
 }
+
 
 onMounted(() => {
   if (props.totalPages > 10) {

@@ -8,7 +8,7 @@ const filmsStore = useFilmsStore()
 const showSaved = ref(false)
 const catalog = computed(() => {
   if (showSaved.value) {
-    return filmsStore.films.filter((f) => f.saved === true)
+    return filmsStore.saved
   } else {
     return filmsStore.films
   }
@@ -22,11 +22,13 @@ const catalog = computed(() => {
 <template>
   <div
     @click="showSaved = !showSaved"
+    :class="{ active: !showSaved }"
   >
     All
   </div>
   <div
     @click="showSaved = !showSaved"
+    :class="{ active: showSaved }"
   >
     Saved
   </div>
@@ -38,12 +40,12 @@ const catalog = computed(() => {
     />
     </div>
     <pagination
+      v-if="!showSaved"
       @changePage="filmsStore.fetchFilms"
       :totalPages="filmsStore.totalPages"
     />
   </div>
   <div v-else>Loading...</div>
-  
 </template>
 
 <style lang="scss" scoped>
@@ -52,5 +54,8 @@ const catalog = computed(() => {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 20px;
   padding: 30px;
+}
+div.active {
+  text-decoration: underline;
 }
 </style>
