@@ -10,7 +10,7 @@ export const useFilmsStore = defineStore('films', {
     totalPages: 0,
     loading: true,
     images: false,
-    saved: [] as Film[]
+    savedFilms: [] as Film[],
   }),
 
   getters: {
@@ -23,11 +23,12 @@ export const useFilmsStore = defineStore('films', {
         this.images = false;
         if (page) this.page = page
         const response = await apiFilms.getFilms(this.limit, this.page)
-        this.films = response.data.data.movies
+        const fetchedFilms = response.data.data.movies
+        fetchedFilms.forEach((film: Film) => {
+          film.saved = this.savedFilms.filter(f => film.id === f.id).length !== 0;
+        })
+        this.films = fetchedFilms
         this.totalPages = Math.ceil(response.data.data.movie_count / this.limit)
-        if (this.films) {
-          this.films.forEach((film) => {film.saved = false})
-        }
       } catch (error) {
         alert(error)
       } finally {
@@ -36,7 +37,14 @@ export const useFilmsStore = defineStore('films', {
       }
     },
     makeSaved(id: number) {
-      this.saved.push(this.films.filter((f) => f.id === id)[0])
+      if (this.savedFilms.filter(f => f.id === id).length == 0) {
+        this.savedFilms.push(...this.films.filter(f => f.id === id))
+        this.savedFilms.forEach(f => f.id === id ? f.saved = true : 0)
+      }
+    },
+    deleteFromSaved(id: number) {
+      this.savedFilms = this.savedFilms.filter((f: Film) => f.id !== id)
+      this.films.forEach(f => f.id === id ? f.saved = false : 0)
     }
   }
 })

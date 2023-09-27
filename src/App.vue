@@ -10,9 +10,8 @@
 
 <style lang="scss">
 .app {
-
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  min-height: 100vh;
   font-family: 'Lato', sans-serif;
   background-color: #f3f2f0;
 }

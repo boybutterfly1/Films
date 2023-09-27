@@ -2,32 +2,32 @@
 import { useFilmsStore } from '@/store/index'
 import FilmsItem from '@/components/FilmsItem.vue'
 import Pagination from '@/components/Pagination.vue'
-import {computed, onMounted, ref} from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const filmsStore = useFilmsStore()
 const showSaved = ref(false)
+
 const catalog = computed(() => {
   if (showSaved.value) {
-    return filmsStore.saved
+    return filmsStore.savedFilms
   } else {
     return filmsStore.films
   }
 })
-
-    onMounted(() => {
+onMounted( () => {
   filmsStore.fetchFilms()
 })
 </script>
 
 <template>
   <div
-    @click="showSaved = !showSaved"
+    @click="showSaved = false"
     :class="{ active: !showSaved }"
   >
     All
   </div>
   <div
-    @click="showSaved = !showSaved"
+    @click="showSaved = true"
     :class="{ active: showSaved }"
   >
     Saved
