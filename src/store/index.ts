@@ -5,7 +5,7 @@ import apiFilms from '@/api/films'
 export const useFilmsStore = defineStore('films', {
   state: () => ({
     films: [] as Film[],
-    limit: 9,
+    limit: 20,
     totalPages: 0,
     currentPage: 1,
     loading: true,
