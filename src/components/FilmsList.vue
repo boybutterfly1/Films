@@ -2,10 +2,11 @@
 import { useFilmsStore } from '@/store'
 import FilmsItem from '@/components/FilmsItem.vue'
 import Pagination from '@/components/Pagination.vue'
-import { computed, onMounted, ref } from 'vue';
+import {computed, onMounted, ref, watch} from 'vue';
 
 const filmsStore = useFilmsStore()
 const showSaved = ref(false)
+const length = computed(() => filmsStore.savedFilms.length)
 
 const catalog = computed(() => {
   if (showSaved.value) {
@@ -16,6 +17,18 @@ const catalog = computed(() => {
 })
 onMounted(() => {
   filmsStore.getTotalPages()
+
+  const filmsInLocalStorage = ref(localStorage.getItem('savedFilms'))
+  console.log(String(filmsInLocalStorage.value))
+  if (JSON.parse(String(filmsInLocalStorage.value))) {
+    console.log('gays')
+    filmsStore.savedFilms = (JSON.parse(String(filmsInLocalStorage.value)))
+  }
+})
+
+watch(length, () => {
+  localStorage.setItem('savedFilms', JSON.stringify(filmsStore.savedFilms))
+  console.log('changed')
 })
 </script>
 

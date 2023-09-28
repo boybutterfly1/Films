@@ -25,8 +25,8 @@ const unsaveImg = ref('https://img.icons8.com/?size=512&id=26083&format=png')
       <span>Year: {{ film.year }}</span>
       <span>Rating: {{ film.rating }}</span>
     </div>
-    <img v-if="film.saved" class="star" :src="unsaveImg" alt="unsave" @click="filmsStore.deleteFromSaved(film.id)"/>
-    <img v-if="!film.saved" class="star" :src="saveImg" alt="save" @click="filmsStore.makeSaved(film.id)"/>
+    <img v-if="filmsStore.savedFilms.filter(f => f.id === film.id).length !== 0" class="star" :src="unsaveImg" alt="unsave" @click="filmsStore.deleteFromSaved(film.id)"/>
+    <img v-if="filmsStore.savedFilms.filter(f => f.id === film.id).length === 0" class="star" :src="saveImg" alt="save" @click="filmsStore.makeSaved(film.id)"/>
   </div>
 </template>
 

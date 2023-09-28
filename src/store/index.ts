@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { Film } from '@/types/Film'
 import apiFilms from '@/api/films'
+import {onMounted} from "vue";
 
 export const useFilmsStore = defineStore('films', {
   state: () => ({
@@ -22,11 +23,11 @@ export const useFilmsStore = defineStore('films', {
       try {
         this.images = false;
         const response = await apiFilms.getFilms(this.limit, page)
-        const fetchedFilms = response.data.data.movies
-        fetchedFilms.forEach((film: Film) => {
-          film.saved = this.savedFilms.filter(f => film.id === f.id).length !== 0;
-        })
-        this.films = fetchedFilms
+        this.films = response.data.data.movies
+        // fetchedFilms.forEach((film: Film) => {
+        //   film.saved = this.savedFilms.filter(f => film.id === f.id).length !== 0;
+        // })
+        // this.films = fetchedFilms
         this.currentPage = page
       } catch (error) {
         alert(error)
@@ -42,12 +43,21 @@ export const useFilmsStore = defineStore('films', {
     makeSaved(id: number) {
       if (this.savedFilms.filter(f => f.id === id).length == 0) {
         this.savedFilms.push(...this.films.filter(f => f.id === id))
-        this.savedFilms.forEach(f => f.id === id ? f.saved = true : 0)
+        // this.savedFilms.forEach(f => f.id === id ? f.saved = true : 0)
       }
     },
     deleteFromSaved(id: number) {
       this.savedFilms = this.savedFilms.filter((f: Film) => f.id !== id)
-      this.films.forEach(f => f.id === id ? f.saved = false : 0)
-    }
+      // this.films.forEach(f => f.id === id ? f.saved = false : 0)
+    },
+    addToLocalStorage() {
+      localStorage.setItem('savedFilms', JSON.stringify(this.savedFilms))
+    },
+    getFromLocalStorage() {
+      const savedFilms = localStorage.getItem('savedFilms');
+      if (savedFilms) {
+        return JSON.parse(savedFilms)
+      }
+    },
   }
 })

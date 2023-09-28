@@ -10,7 +10,6 @@ const currentPage = ref(Number(route.params.currentPage))
 
 onMounted(() => {
   filmsStore.fetchFilms(currentPage.value)
-  console.log(route.params.currentPage)
 })
 </script>
 
