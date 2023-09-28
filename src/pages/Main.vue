@@ -5,7 +5,7 @@
 <template>
   <div>
     <button
-    @click="$router.push('/catalog')"
+    @click="$router.push('/page/1')"
     >
       Catalog
     </button>

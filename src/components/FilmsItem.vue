@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Film } from '@/types/Film'
 import { ref } from 'vue'
-import { useFilmsStore } from '@/store/index'
+import { useFilmsStore } from '@/store'
 import films from "../api/films";
 
 const props = defineProps<{ 
@@ -25,8 +25,8 @@ const unsaveImg = ref('https://img.icons8.com/?size=512&id=26083&format=png')
       <span>Year: {{ film.year }}</span>
       <span>Rating: {{ film.rating }}</span>
     </div>
-    <img v-if="film.saved === true" class="star" :src="unsaveImg" alt="unsave" @click="filmsStore.deleteFromSaved(film.id)"/>
-    <img v-if="film.saved === false" class="star" :src="saveImg" alt="save" @click="filmsStore.makeSaved(film.id)"/>
+    <img v-if="film.saved" class="star" :src="unsaveImg" alt="unsave" @click="filmsStore.deleteFromSaved(film.id)"/>
+    <img v-if="!film.saved" class="star" :src="saveImg" alt="save" @click="filmsStore.makeSaved(film.id)"/>
   </div>
 </template>
 

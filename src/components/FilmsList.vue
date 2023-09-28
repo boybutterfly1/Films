@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useFilmsStore } from '@/store/index'
+import { useFilmsStore } from '@/store'
 import FilmsItem from '@/components/FilmsItem.vue'
 import Pagination from '@/components/Pagination.vue'
 import { computed, onMounted, ref } from 'vue';
@@ -14,8 +14,8 @@ const catalog = computed(() => {
     return filmsStore.films
   }
 })
-onMounted( () => {
-  filmsStore.fetchFilms()
+onMounted(() => {
+  filmsStore.getTotalPages()
 })
 </script>
 

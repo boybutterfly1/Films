@@ -5,9 +5,9 @@ import apiFilms from '@/api/films'
 export const useFilmsStore = defineStore('films', {
   state: () => ({
     films: [] as Film[],
-    page: 1,
-    limit: 10,
+    limit: 9,
     totalPages: 0,
+    currentPage: 1,
     loading: true,
     images: false,
     savedFilms: [] as Film[],
@@ -18,23 +18,26 @@ export const useFilmsStore = defineStore('films', {
   },
 
   actions: {
-    async fetchFilms(page?: number)  {
+    async fetchFilms(page: number)  {
       try {
         this.images = false;
-        if (page) this.page = page
-        const response = await apiFilms.getFilms(this.limit, this.page)
+        const response = await apiFilms.getFilms(this.limit, page)
         const fetchedFilms = response.data.data.movies
         fetchedFilms.forEach((film: Film) => {
           film.saved = this.savedFilms.filter(f => film.id === f.id).length !== 0;
         })
         this.films = fetchedFilms
-        this.totalPages = Math.ceil(response.data.data.movie_count / this.limit)
+        this.currentPage = page
       } catch (error) {
         alert(error)
       } finally {
         this.loading = false
         this.images = true
       }
+    },
+    async getTotalPages() {
+      const response = await apiFilms.getFilms(this.limit, 1)
+      this.totalPages = Math.ceil(response.data.data.movie_count / this.limit)
     },
     makeSaved(id: number) {
       if (this.savedFilms.filter(f => f.id === id).length == 0) {

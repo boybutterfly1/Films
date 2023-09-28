@@ -1,47 +1,55 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useFilmsStore } from "@/store";
 
+const filmsStore =  useFilmsStore()
 const pagPages = ref<number[]>([])
 const props = defineProps<{
-  totalPages: number
+  totalPages: number,
 }>()
-const currentPage = ref(1)
-const changePage = (page: number, emit: (event: string, payload?: any) => void) => {
+
+const currentPage = ref(filmsStore.currentPage)
+const changePage = (page: number, emit?: (event: string, payload?: any) => void) => {
   if (props.totalPages > 10 && page > 5 && pagPages.value) {
-    const newVisPages = []
+    pagPages.value = []
     for (let i = page - 4; i <= page + 5 && i <= props.totalPages; i++) {
-      newVisPages.push(i)
+      pagPages.value.push(i)
     }
-    pagPages.value = newVisPages
   } else {
     pagPages.value = Array.from({ length: 10 }, (_, i) => i + 1)
   }
-  emit('changePage', page)
+  if (emit){
+    emit('changePage', page);
+  }
   currentPage.value = page
 }
 
 
 onMounted(() => {
-  if (props.totalPages > 10) {
-    pagPages.value = Array.from({ length: 10}, (_, i) => i + 1)
+  if (filmsStore.currentPage >= 10) {
+    changePage(filmsStore.currentPage)
   } else {
-    pagPages.value = Array.from({ length: props.totalPages}, (_, i) => i + 1)
+    if (props.totalPages > 10) {
+      pagPages.value = Array.from({ length: 10}, (_, i) => i + 1)
+    } else {
+      pagPages.value = Array.from({ length: props.totalPages}, (_, i) => i + 1)
+    }
   }
 })
 </script>
 
 <template>
   <div class="pagination">
-    <button @click="changePage(1, $emit)">&lt;&lt;</button>
+    <button @click="changePage(1, $emit); $router.push(`/page/${1}`)">&lt;&lt;</button>
     <button
         v-for="page in pagPages"
         :key="page"
-        @click="changePage(page, $emit)"
+        @click="changePage(page, $emit); $router.push(`/page/${page}`)"
         :class="{ active: page === currentPage }"
     >
       {{ page }}
     </button>
-    <button @click="changePage(props.totalPages, $emit)">>></button>
+    <button @click="changePage(props.totalPages, $emit); $router.push(`/page/${props.totalPages}`)">>></button>
   </div>
 </template>
 
