@@ -19,9 +19,7 @@ onMounted(() => {
   filmsStore.getTotalPages()
 
   const filmsInLocalStorage = ref(localStorage.getItem('savedFilms'))
-  console.log(String(filmsInLocalStorage.value))
   if (JSON.parse(String(filmsInLocalStorage.value))) {
-    console.log('gays')
     filmsStore.savedFilms = (JSON.parse(String(filmsInLocalStorage.value)))
   }
 })
