@@ -45,6 +45,9 @@ watch(length, () => {
   >
     Saved
   </div>
+  <div v-if="showSaved && filmsStore.savedFilms.length > 0">
+    <button @click="filmsStore.savedFilms = []">Delete all</button>
+  </div>
   <div v-if="filmsStore.loading==false">
     <div class="container">
     <films-item
