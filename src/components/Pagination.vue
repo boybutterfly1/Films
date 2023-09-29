@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { useFilmsStore } from "@/store";
+import { useFilmsStore } from "@/store/films";
 
 const filmsStore =  useFilmsStore()
 const pagPages = ref<number[]>([])

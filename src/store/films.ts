@@ -6,7 +6,7 @@ import {onMounted} from "vue";
 export const useFilmsStore = defineStore('films', {
   state: () => ({
     films: [] as Film[],
-    limit: 20,
+    limit: 12,
     totalPages: 0,
     currentPage: 1,
     loading: true,

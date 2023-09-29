@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { useFilmsStore } from '@/store'
+import { useFilmsStore } from '@/store/films'
+import { useUsersStore} from "@/store/users";
 import FilmsItem from '@/components/FilmsItem.vue'
 import Pagination from '@/components/Pagination.vue'
 import {computed, onMounted, ref, watch} from 'vue';
 
 const filmsStore = useFilmsStore()
+const usersStore = useUsersStore()
 const showSaved = ref(false)
-const length = computed(() => filmsStore.savedFilms.length)
+
 
 const catalog = computed(() => {
   if (showSaved.value) {
@@ -15,18 +17,9 @@ const catalog = computed(() => {
     return filmsStore.films
   }
 })
-onMounted(() => {
-  filmsStore.getTotalPages()
 
-  const filmsInLocalStorage = ref(localStorage.getItem('savedFilms'))
-  if (JSON.parse(String(filmsInLocalStorage.value))) {
-    filmsStore.savedFilms = (JSON.parse(String(filmsInLocalStorage.value)))
-  }
-})
+watch(computed(() => usersStore.isLoggedIn), () => {
 
-watch(length, () => {
-  localStorage.setItem('savedFilms', JSON.stringify(filmsStore.savedFilms))
-  console.log('changed')
 })
 </script>
 
@@ -38,10 +31,11 @@ watch(length, () => {
     All
   </div>
   <div
+    v-if="usersStore.isLoggedIn"
     @click="showSaved = true"
     :class="{ active: showSaved }"
   >
-    Saved
+    Watch List
   </div>
   <div v-if="showSaved && filmsStore.savedFilms.length > 0">
     <button @click="filmsStore.savedFilms = []">Delete all</button>

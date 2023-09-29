@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import {onMounted, ref} from 'vue'
 import FilmsList from "@/components/FilmsList.vue";
-import {useFilmsStore} from "@/store";
+import {useFilmsStore} from "@/store/films";
 
 const filmsStore = useFilmsStore()
 const route = useRoute()
