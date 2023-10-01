@@ -53,11 +53,13 @@ onMounted(() => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 30px;
+  background-color: black;
+  height: 70px;
 }
 
 .pagination button {
@@ -71,6 +73,7 @@ onMounted(() => {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  height: 30px;
 }
 
 .pagination button:hover {

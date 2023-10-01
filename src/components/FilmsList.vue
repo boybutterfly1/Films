@@ -9,7 +9,6 @@ const filmsStore = useFilmsStore()
 const usersStore = useUsersStore()
 const showSaved = ref(false)
 
-
 const catalog = computed(() => {
   if (showSaved.value) {
     return filmsStore.savedFilms
@@ -24,46 +23,81 @@ watch(computed(() => usersStore.isLoggedIn), () => {
 </script>
 
 <template>
-  <div
-    @click="showSaved = false"
-    :class="{ active: !showSaved }"
-  >
-    All
-  </div>
-  <div
-    v-if="usersStore.isLoggedIn"
-    @click="showSaved = true"
-    :class="{ active: showSaved }"
-  >
-    Watch List
-  </div>
-  <div v-if="showSaved && filmsStore.savedFilms.length > 0">
-    <button @click="filmsStore.savedFilms = []">Delete all</button>
-  </div>
-  <div v-if="filmsStore.loading==false">
-    <div class="container">
-    <films-item
-      v-for="film in catalog"
-      :film="film"
-    />
+  <div class="catalog-options">
+    <div
+        @click="showSaved = false"
+        :class="{ active: !showSaved }"
+    >
+      All
     </div>
-    <pagination
-      v-if="!showSaved"
+    <div
+      v-if="usersStore.isLoggedIn"
+      @click="showSaved = true"
+      :class="{ active: showSaved }"
+    >
+      Watch List
+    </div>
+      <button
+        v-if="showSaved && filmsStore.savedFilms.length > 0"
+        @click="filmsStore.savedFilms = []"
+      >
+        Delete all
+      </button>
+  </div>
+
+    <div v-if="filmsStore.loading===false">
+      <div class="container">
+<!--    <TransitionGroup name="film-list">-->
+      <films-item
+        v-for="film in catalog"
+        :film="film"
+        :key="film.id"
+      />
+<!--    </TransitionGroup>-->
+  <pagination
+      v-if="!showSaved && filmsStore.loading===false"
       @changePage="filmsStore.fetchFilms"
       :totalPages="filmsStore.totalPages"
-    />
-  </div>
+  />
+      </div>
+    </div>
   <div v-else>Loading...</div>
 </template>
 
 <style lang="scss" scoped>
+.catalog-options {
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  margin-bottom: 20px;
+}
 .container {
-  display: grid;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 20px;
-  padding: 30px;
+  grid-gap: 30px;
+  justify-content: center
 }
 div.active {
   text-decoration: underline;
 }
+//.film-list-item {
+//  display: inline-block;
+//  margin-right: 10px;
+//}
+//.film-list-enter-active,
+//.film-list-leave-active {
+//  transition: all 0.4s ease;
+//}
+//.film-list-enter-from,
+//.film-list-leave-to {
+//  opacity: 0;
+//  transform: translateY(-200px);
+//}
+//.film-list-move {
+//  transition: all 0.4s ease;
+//}
 </style>

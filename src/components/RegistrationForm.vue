@@ -58,7 +58,7 @@ const login = () => {
         v-model="(user.login)"
     >
     <input
-        type="text"
+        type="password"
         placeholder="Password"
         v-model="(user.password)"
     >

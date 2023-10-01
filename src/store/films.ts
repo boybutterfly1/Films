@@ -24,10 +24,6 @@ export const useFilmsStore = defineStore('films', {
         this.images = false;
         const response = await apiFilms.getFilms(this.limit, page)
         this.films = response.data.data.movies
-        // fetchedFilms.forEach((film: Film) => {
-        //   film.saved = this.savedFilms.filter(f => film.id === f.id).length !== 0;
-        // })
-        // this.films = fetchedFilms
         this.currentPage = page
       } catch (error) {
         alert(error)
@@ -36,12 +32,16 @@ export const useFilmsStore = defineStore('films', {
         this.images = true
       }
     },
+    async fetchFilmByID(id: number): Promise<Film> {
+      const response = await apiFilms.getFilmById(id)
+      return response.data.data.movie
+    },
     async getTotalPages() {
       const response = await apiFilms.getFilms(this.limit, 1)
       this.totalPages = Math.ceil(response.data.data.movie_count / this.limit)
     },
     makeSaved(id: number) {
-      if (this.savedFilms.filter(f => f.id === id).length == 0) {
+      if (this.savedFilms.filter(f => f.id === id).length === 0) {
         this.savedFilms.push(...this.films.filter(f => f.id === id))
         // this.savedFilms.forEach(f => f.id === id ? f.saved = true : 0)
       }
@@ -49,15 +49,6 @@ export const useFilmsStore = defineStore('films', {
     deleteFromSaved(id: number) {
       this.savedFilms = this.savedFilms.filter((f: Film) => f.id !== id)
       // this.films.forEach(f => f.id === id ? f.saved = false : 0)
-    },
-    addToLocalStorage() {
-      localStorage.setItem('savedFilms', JSON.stringify(this.savedFilms))
-    },
-    getFromLocalStorage() {
-      const savedFilms = localStorage.getItem('savedFilms');
-      if (savedFilms) {
-        return JSON.parse(savedFilms)
-      }
-    },
+    }
   }
 })

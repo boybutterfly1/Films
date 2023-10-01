@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import {ref} from "vue";
+import {onMounted, ref, watch} from "vue";
+import {computed} from "vue/dist/vue";
 
 interface User {
     id: Number,
@@ -25,6 +26,7 @@ export const useUsersStore = defineStore('users', () => {
         isLoggedIn.value = true
         isOpen.value = false
     }
+
     const loginUser = (login: String, password: String) => {
         if (users.value.some(user => user.login === login && user.password === password)) {
             isLoggedIn.value = true
