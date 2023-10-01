@@ -50,7 +50,7 @@ watch(login, () => {
   min-height: 100vh;
   font-family: 'Lato', sans-serif;
   background-color: #000000;
-  color: white;
+  color: #dad7d7;
   justify-content: center
 }
 </style>

@@ -10,12 +10,10 @@ const usersStore = useUsersStore()
 
 <template>
   <div class="header">
-    <div
-      class="logo"
-      @click="router.push('/page/1')"
-    >
+    <div class="logo" @click="router.push('/page/1')">
       Berba Films
     </div>
+    <button v-if="usersStore.isLoggedIn" @click="">{{usersStore.currentUser.name}}</button>
     <button v-if="usersStore.isLoggedIn === false" @click="usersStore.isOpen = true">Login</button>
     <button v-else @click="usersStore.isLoggedIn = false">Logout</button>
     <MyDialog :isOpen="usersStore.isOpen" @close="usersStore.isOpen = false">
