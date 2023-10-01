@@ -25,6 +25,7 @@ export const useUsersStore = defineStore('users', () => {
         users.value.push(user)
         isLoggedIn.value = true
         isOpen.value = false
+        currentUser.value = user
     }
     const currentUser = ref()
 
