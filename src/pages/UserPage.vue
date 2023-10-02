@@ -5,7 +5,7 @@ import Lists from "@/components/User/Lists.vue";
 import Profile from "@/components/User/Profile.vue";
 import {ref, reactive} from "vue";
 
-const selectedComp = ref('profile')
+const selectedComp = ref('watch-list')
 </script>
 
 <template>
