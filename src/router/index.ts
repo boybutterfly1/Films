@@ -3,6 +3,7 @@ import Catalog from '@/pages/Catalog.vue'
 import Main from '@/pages/Main.vue'
 import CurrentPage from '@/pages/CurrentPage.vue'
 import FilmDetailsPage from "@/pages/FilmDetailsPage.vue";
+import UserPage from "@/pages/UserPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,7 +25,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/film/:id',
     name: 'filmDetails',
     component: FilmDetailsPage
-  }
+  },
+  {
+    path: '/user/:id',
+    name: 'userPage',
+    component: UserPage
+  },
 ]
 
 const router = createRouter({

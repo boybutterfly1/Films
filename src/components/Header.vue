@@ -16,9 +16,10 @@ const usersStore = useUsersStore()
     <div class="btns">
       <router-link :to="`/catalog/page/${1}`" exact class="tab" active-class="active">Catalog</router-link>
 <!--      <button @click="$router.replace('/catalog')">Catalog</button>-->
-      <button v-if="usersStore.isLoggedIn" @click="">{{usersStore.currentUser.name}}</button>
+      <router-link v-if="usersStore.isLoggedIn" :to="`/user/${usersStore.currentUser.id}`" exact class="tab" active-class="active">{{usersStore.currentUser.name}}</router-link>
+<!--      <button v-if="usersStore.isLoggedIn" @click="">{{usersStore.currentUser.name}}</button>-->
       <button v-if="!usersStore.isLoggedIn" @click="usersStore.isOpen = true">Login</button>
-      <button v-else @click="usersStore.isLoggedIn = false">Logout</button>
+      <button v-else @click="usersStore.isLoggedIn = false; $router.replace('/catalog/page/1')">Logout</button>
     </div>
     <MyDialog :isOpen="usersStore.isOpen" @close="usersStore.isOpen = false">
       <RegistrationForm/>
