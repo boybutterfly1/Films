@@ -56,8 +56,8 @@ const unsaveImg = ref('https://img.icons8.com/?size=512&id=26083&format=png')
   transform: scale(1.03);
 }
 .cover {
-  width: auto;
-  height: 100%;
+  width: 130px;
+  height: 200px;
   object-fit: cover;
   border-radius: 4px;
 }
