@@ -4,6 +4,7 @@ import { useUsersStore} from "@/store/users";
 import FilmsItem from '@/components/FilmsItem.vue'
 import Pagination from '@/components/Pagination.vue'
 import {computed, onMounted, ref, watch} from 'vue';
+import Loading from "@/components/UI/Loading.vue";
 
 const filmsStore = useFilmsStore()
 const usersStore = useUsersStore()
@@ -37,31 +38,34 @@ watch(computed(() => usersStore.isLoggedIn), () => {
     >
       Watch List
     </div>
-      <button
+  </div>
+      <button class="delete"
         v-if="showSaved && filmsStore.savedFilms.length > 0"
         @click="filmsStore.savedFilms = []"
       >
         Delete all
       </button>
-  </div>
 
-    <div v-if="filmsStore.loading===false">
-      <div class="container">
+  <div v-if="filmsStore.loading===false">
+    <div class="container">
 <!--    <TransitionGroup name="film-list">-->
       <films-item
         v-for="film in catalog"
         :film="film"
         :key="film.id"
       />
+    </div>
 <!--    </TransitionGroup>-->
-  <pagination
+    <pagination
       v-if="!showSaved && filmsStore.loading===false"
       @changePage="filmsStore.fetchFilms"
       :totalPages="filmsStore.totalPages"
+    />
+  </div>
+  <loading
+   v-else
   />
-      </div>
-    </div>
-  <div v-else>Loading...</div>
+
 </template>
 
 <style lang="scss" scoped>
@@ -70,8 +74,8 @@ watch(computed(() => usersStore.isLoggedIn), () => {
   width: 200px;
   justify-content: space-between;
   align-items: center;
-  margin: auto;
-  margin-bottom: 20px;
+  margin: auto auto 20px;
+  cursor: pointer;
 }
 .container {
   position: relative;
@@ -84,6 +88,7 @@ watch(computed(() => usersStore.isLoggedIn), () => {
 div.active {
   text-decoration: underline;
 }
+
 //.film-list-item {
 //  display: inline-block;
 //  margin-right: 10px;

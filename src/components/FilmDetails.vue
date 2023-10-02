@@ -4,6 +4,7 @@ import {computed, onMounted, ref} from "vue";
 import {useFilmsStore} from "@/store/films";
 import {useUsersStore} from "@/store/users";
 import {Film} from "@/types/Film";
+import Loading from "@/components/UI/Loading.vue";
 
 const filmsStore = useFilmsStore()
 const usersStore = useUsersStore()
@@ -41,16 +42,16 @@ const unsaveImg = ref('https://img.icons8.com/?size=512&id=26083&format=png')
       </div>
     </div>
   </div>
-  <div v-else>Loading...</div>
+  <loading
+      v-else
+  />
 </template>
 
 <style lang="scss" scoped>
 .container {
   position: relative;
   max-width: 1000px;
-  margin: auto;
-  margin-top: 100px;
-  min-height: 100vh
+  margin: 70px auto auto;
 }
 .bg-img {
   display: block;
@@ -85,10 +86,9 @@ const unsaveImg = ref('https://img.icons8.com/?size=512&id=26083&format=png')
   padding: 10px;
 }
 .film-info h3 {
-  margin: 0;
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin: 0 0 30px;
 }
 .film-info span {
   font-size: 16px;

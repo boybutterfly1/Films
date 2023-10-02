@@ -19,7 +19,7 @@ const props = defineProps<{
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,8 +27,9 @@ const props = defineProps<{
 }
 
 .dialog-content {
-  background-color: #fff;
+  background-color: #39393d;
   padding: 20px;
   border-radius: 5px;
+  justify-content: center;
 }
 </style>

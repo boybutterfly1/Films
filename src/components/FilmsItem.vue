@@ -45,11 +45,12 @@ const unsaveImg = ref('https://img.icons8.com/?size=512&id=26083&format=png')
   display: flex;
   flex-direction: row;
   width: 300px;
-  height: 250px;
+  height: 200px;
   box-sizing: border-box;
   position: relative;
   background-color: #111111;
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 .film_card:hover {
   transform: scale(1.03);

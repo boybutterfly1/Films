@@ -6,11 +6,10 @@ import {onMounted} from "vue";
 export const useFilmsStore = defineStore('films', {
   state: () => ({
     films: [] as Film[],
-    limit: 12,
+    limit: 15,
     totalPages: 0,
     currentPage: 1,
     loading: true,
-    images: false,
     savedFilms: [] as Film[],
   }),
 
@@ -21,7 +20,6 @@ export const useFilmsStore = defineStore('films', {
   actions: {
     async fetchFilms(page: number)  {
       try {
-        this.images = false;
         const response = await apiFilms.getFilms(this.limit, page)
         this.films = response.data.data.movies
         this.currentPage = page
@@ -29,12 +27,17 @@ export const useFilmsStore = defineStore('films', {
         alert(error)
       } finally {
         this.loading = false
-        this.images = true
       }
     },
-    async fetchFilmByID(id: number): Promise<Film> {
-      const response = await apiFilms.getFilmById(id)
-      return response.data.data.movie
+    async fetchFilmByID(id: number) {
+      try {
+        const response = await apiFilms.getFilmById(id)
+        return response.data.data.movie
+      } catch (error) {
+        alert(error)
+      } finally {
+        this.loading = false
+      }
     },
     async getTotalPages() {
       const response = await apiFilms.getFilms(this.limit, 1)

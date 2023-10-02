@@ -41,7 +41,6 @@ watch(login, () => {
 
 <style lang="scss">
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -51,6 +50,5 @@ watch(login, () => {
   font-family: 'Lato', sans-serif;
   background-color: #000000;
   color: #dad7d7;
-  justify-content: center
 }
 </style>

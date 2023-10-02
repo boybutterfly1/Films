@@ -32,6 +32,7 @@ const login = () => {
 </script>
 
 <template>
+  <div class="log-reg-form">
   <div v-if="isRegistered === true" class="login-form">
     <input
       type="text"
@@ -64,7 +65,7 @@ const login = () => {
     >
     <button @click="register">Register</button>
   </div>
-
+  </div>
 </template>
 
 <style lang="scss">
@@ -75,5 +76,26 @@ const login = () => {
 .register-form {
   display: flex;
   flex-direction: column;
+}
+.log-reg-form input {
+  margin-bottom: 5px;
+  padding: 5px 5px;
+  font-family: 'Lato', sans-serif;
+  background-color: #f5f2f2;
+  color: black;
+  border: 1px solid #a4a0a0;
+}
+.log-reg-form button {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  background-color: white;
+  border-width: 0;
+  border-radius: 4px;
+  color: #a4a0a0;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: bold;
 }
 </style>

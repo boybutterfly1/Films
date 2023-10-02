@@ -57,9 +57,8 @@ onMounted(() => {
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 70px;
   background-color: black;
-  height: 70px;
 }
 
 .pagination button {
@@ -67,7 +66,7 @@ onMounted(() => {
   padding: 5px 8px;
   margin: 0 5px;
   border: none;
-  background-color: #575764;
+  background-color: #111111;
   color: #fff;
   font-family: 'Lato', sans-serif;
   font-size: 14px;
@@ -77,10 +76,10 @@ onMounted(() => {
 }
 
 .pagination button:hover {
-  background-color: #333;
+  background-color: #39393d;
 }
 
 .pagination button.active {
-  background-color: #333;
+  background-color: #39393d;
 }
 </style>
