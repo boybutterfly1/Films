@@ -30,13 +30,15 @@ export const useUsersStore = defineStore('users', () => {
     const currentUser = ref()
 
     const loginUser = (login: String, password: String) => {
-        const user = users.value.filter(user => user.login === login && user.password === password)[0]
-        if (user) {
-            isLoggedIn.value = true
-            isOpen.value = false
-            currentUser.value = user
-        } else {
-            alert('Wrong login or password!')
+        if (login && password) {
+            const user = users.value.filter(user => user.login === login && user.password === password)[0]
+            if (user) {
+                isLoggedIn.value = true
+                isOpen.value = false
+                currentUser.value = user
+            } else {
+                alert('Wrong login or password!')
+            }
         }
     }
 

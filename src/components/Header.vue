@@ -48,8 +48,10 @@ const usersStore = useUsersStore()
   font-family: 'Lato', sans-serif;
   font-size: 15px;
   font-weight: bold;
+
 }
 .btns button:hover {
+  transition: color 0.2s;
   color: white;
 }
 </style>

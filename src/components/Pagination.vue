@@ -71,7 +71,7 @@ onMounted(() => {
   font-family: 'Lato', sans-serif;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
   height: 30px;
 }
 

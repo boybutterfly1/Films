@@ -11,23 +11,20 @@ const user = ref({
 })
 const isRegistered = ref(true)
 const register = () => {
-  usersStore.registerUser(
-      {
-        id: Date.now(),
-        name: user.value.name,
-        login: user.value.login,
-        password: user.value.password,
-        regDate: new Date().toLocaleString()
-      }
-  );
-  user.value.name = '';
-  user.value.login = '';
-  user.value.password = '';
-
-}
-
-const login = () => {
-
+  if (user.value.name && user.value.login && user.value.password) {
+    usersStore.registerUser(
+        {
+          id: Date.now(),
+          name: user.value.name,
+          login: user.value.login,
+          password: user.value.password,
+          regDate: new Date().toLocaleString()
+        }
+    );
+    user.value.name = '';
+    user.value.login = '';
+    user.value.password = '';
+  }
 }
 </script>
 
@@ -40,12 +37,12 @@ const login = () => {
       v-model="(user.login)"
     >
     <input
-      type="text"
+      type="password"
       placeholder="Password"
       v-model="(user.password)"
     >
     <button @click="usersStore.loginUser(user.login, user.password)">Login</button>
-    <span @click="isRegistered = false; user.login = ''; user.password = '';">Not registered yet?</span>
+    <span class="text-btn" @click="isRegistered = false; user.login = ''; user.password = '';">Not registered yet?</span>
   </div>
   <div v-else class="register-form">
     <input
@@ -64,6 +61,7 @@ const login = () => {
         v-model="(user.password)"
     >
     <button @click="register">Register</button>
+    <span class="text-btn" @click="isRegistered = true; user.login = ''; user.password = '';">Login</span>
   </div>
   </div>
 </template>
@@ -72,30 +70,52 @@ const login = () => {
 .login-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .register-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .log-reg-form input {
+  border-radius: 1px;
   margin-bottom: 5px;
   padding: 5px 5px;
   font-family: 'Lato', sans-serif;
+  font-weight: bold;
   background-color: #f5f2f2;
   color: black;
   border: 1px solid #a4a0a0;
 }
+.log-reg-form input:focus {
+  outline: none;
+}
 .log-reg-form button {
+  width: 100%;
   margin-top: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   padding: 10px 15px;
-  background-color: white;
+  color: #dcd5d5;
+  background-color: #7a7474;
   border-width: 0;
   border-radius: 4px;
-  color: #a4a0a0;
   cursor: pointer;
   font-family: 'Lato', sans-serif;
   font-size: 15px;
   font-weight: bold;
+}
+.log-reg-form button:hover {
+  transition: 0.3s;
+  color: #dcd5d5;
+  background-color: #810505;
+}
+.text-btn {
+  font-size: 14px;
+  color: #a4a0a0;
+  cursor: pointer;
+}
+.text-btn:hover {
+  transition: color 0.3s;
+  color: white;
 }
 </style>
