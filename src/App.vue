@@ -2,7 +2,7 @@
 import { useFilmsStore } from "@/store/films";
 import { useUsersStore } from "@/store/users";
 import {computed, onMounted, ref, watch} from "vue";
-import Header from "@/components/Header.vue";
+import Navbar from "@/components/Navbar.vue";
 
 const usersStore = useUsersStore()
 const filmsStore = useFilmsStore()
@@ -34,7 +34,7 @@ watch(login, () => {
 
 <template>
   <div class="app">
-    <Header></Header>
+    <Navbar></Navbar>
     <router-view></router-view>
   </div>
 </template>

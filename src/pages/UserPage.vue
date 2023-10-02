@@ -3,17 +3,17 @@ import WatchList from "@/components/User/WatchList.vue";
 import Ratings from "@/components/User/Ratings.vue";
 import Lists from "@/components/User/Lists.vue";
 import Profile from "@/components/User/Profile.vue";
-import {ref} from "vue";
+import {ref, reactive} from "vue";
 
 const selectedComp = ref('profile')
 </script>
 
 <template>
   <div class="user-navbar">
-    <div @click="selectedComp = 'profile'">Profile</div>
-    <div @click="selectedComp = 'watch-list'">Watch List</div>
-    <div @click="selectedComp = 'ratings'">Ratings</div>
-    <div @click="selectedComp = 'lists'">Lists</div>
+    <div @click="selectedComp = 'profile'" :class="{ 'selected': selectedComp === 'profile' }">Profile</div>
+    <div @click="selectedComp = 'watch-list'" :class="{ 'selected': selectedComp === 'watch-list' }">Watch List</div>
+    <div @click="selectedComp = 'ratings'" :class="{ 'selected': selectedComp === 'ratings' }">Ratings</div>
+    <div @click="selectedComp = 'lists'" :class="{ 'selected': selectedComp === 'lists' }">Lists</div>
   </div>
   <profile v-if="selectedComp === 'profile'"/>
   <watch-list v-if="selectedComp === 'watch-list'"/>
@@ -29,20 +29,18 @@ const selectedComp = ref('profile')
   color: #a4a0a0;
   padding: 10px;
   gap: 30px;
+  margin-bottom: 20px;
 }
-
 .user-navbar div {
   cursor: pointer;
   padding: 5px 10px;
   border-radius: 5px;
 }
-
 .user-navbar div:hover {
   transition: color 0.2s;
   color: white;
 }
-
-.user-navbar div[selected] {
+.user-navbar div.selected {
   color: white;
 }
 </style>

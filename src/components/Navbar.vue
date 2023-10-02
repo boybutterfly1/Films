@@ -4,17 +4,20 @@ import { ref } from 'vue';
 import MyDialog from "@/components/UI/MyDialog.vue";
 import RegistrationForm from "@/components/RegistrationForm.vue";
 import router from "@/router";
+import {useRoute} from "vue-router";
 
+const route = useRoute()
 const usersStore = useUsersStore()
 </script>
 
 <template>
   <div class="navbar">
     <div class="logo" @click="router.push('/')">
-      Berba Films
+      Bebra Films
     </div>
     <div class="btns">
-      <router-link :to="`/catalog/page/${1}`" exact class="tab" active-class="active">Catalog</router-link>
+<!--      <router-link :to="`/catalog/page/${1}`" exact class="tab" active-class="active" @click="console.log()">Catalog</router-link>-->
+      <router-link :to="`/catalog/page/${1}`" exact class="tab" :class="{'active': this.$route.path.includes('catalog')}">Catalog</router-link>
 <!--      <button @click="$router.replace('/catalog')">Catalog</button>-->
       <router-link v-if="usersStore.isLoggedIn" :to="`/user/${usersStore.currentUser.id}`" exact class="tab" active-class="active">{{usersStore.currentUser.name}}</router-link>
 <!--      <button v-if="usersStore.isLoggedIn" @click="">{{usersStore.currentUser.name}}</button>-->
