@@ -40,16 +40,16 @@ onMounted(() => {
 
 <template>
   <div class="pagination">
-    <button @click="changePage(1, $emit); $router.push(`/page/${1}`)">&lt;&lt;</button>
+    <button @click="changePage(1, $emit); $router.push(`/catalog/page/${1}`)">&lt;&lt;</button>
     <button
         v-for="page in pagPages"
         :key="page"
-        @click="changePage(page, $emit); $router.push(`/page/${page}`)"
+        @click="changePage(page, $emit); $router.push(`/catalog/page/${page}`)"
         :class="{ active: page === currentPage }"
     >
       {{ page }}
     </button>
-    <button @click="changePage(props.totalPages, $emit); $router.push(`/page/${props.totalPages}`)">>></button>
+    <button @click="changePage(props.totalPages, $emit); $router.push(`/catalog/page/${props.totalPages}`)">>></button>
   </div>
 </template>
 

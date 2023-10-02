@@ -10,18 +10,18 @@ const routes: Array<RouteRecordRaw> = [
     name: 'main',
     component: Main
   },
+  // {
+  //   path: '/catalog',
+  //   name: 'catalog',
+  //   component: Catalog
+  // },
   {
-    path: '/catalog',
-    name: 'catalog',
-    component: Catalog
-  },
-  {
-    path: '/page/:currentPage',
+    path: '/catalog/page/:currentPage',
     name: 'page',
     component: CurrentPage
   },
   {
-    path: '/page/film/:id',
+    path: '/film/:id',
     name: 'filmDetails',
     component: FilmDetailsPage
   }

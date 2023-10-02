@@ -10,12 +10,14 @@ const usersStore = useUsersStore()
 
 <template>
   <div class="navbar">
-    <div class="logo" @click="router.push('/page/1')">
+    <div class="logo" @click="router.push('/')">
       Berba Films
     </div>
     <div class="btns">
+      <router-link :to="`/catalog/page/${1}`" exact class="tab" active-class="active">Catalog</router-link>
+<!--      <button @click="$router.replace('/catalog')">Catalog</button>-->
       <button v-if="usersStore.isLoggedIn" @click="">{{usersStore.currentUser.name}}</button>
-      <button v-if="usersStore.isLoggedIn === false" @click="usersStore.isOpen = true">Login</button>
+      <button v-if="!usersStore.isLoggedIn" @click="usersStore.isOpen = true">Login</button>
       <button v-else @click="usersStore.isLoggedIn = false">Logout</button>
     </div>
     <MyDialog :isOpen="usersStore.isOpen" @close="usersStore.isOpen = false">
@@ -34,6 +36,26 @@ const usersStore = useUsersStore()
   margin-bottom: 20px;
   padding: 25px 15px;
 }
+.tab {
+  padding: 10px 15px;
+  background-color: black;
+  border-width: 0;
+  color: #a4a0a0;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.tab:hover {
+  transition: color 0.2s;
+  color: white;
+}
+.tab.active {
+  transition: color 0.2s;
+  color: white;
+}
+
 .logo {
   font-weight: bold;
   font-size: 30px;
@@ -48,7 +70,6 @@ const usersStore = useUsersStore()
   font-family: 'Lato', sans-serif;
   font-size: 15px;
   font-weight: bold;
-
 }
 .btns button:hover {
   transition: color 0.2s;

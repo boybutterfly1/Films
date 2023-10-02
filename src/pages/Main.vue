@@ -1,15 +1,9 @@
 <script setup lang="ts">
 
+import FilmsList from "@/components/FilmsList.vue";
 </script>
 
 <template>
-  <div>
-    <button
-    @click="$router.push('/page/1')"
-    >
-      Catalog
-    </button>
-  </div>
 </template>
 
 <style lang="scss">

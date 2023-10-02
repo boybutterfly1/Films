@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { Film } from '@/types/Film'
 import apiFilms from '@/api/films'
-import {onMounted} from "vue";
 
 export const useFilmsStore = defineStore('films', {
   state: () => ({

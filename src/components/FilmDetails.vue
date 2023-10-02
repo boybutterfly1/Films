@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute} from "vue-router";
-import {computed, onMounted, ref} from "vue";
+import { onMounted, ref} from "vue";
 import {useFilmsStore} from "@/store/films";
 import {useUsersStore} from "@/store/users";
 import {Film} from "@/types/Film";

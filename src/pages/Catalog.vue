@@ -1,12 +1,21 @@
-<script setup lang="ts">
-import FilmsList from '@/components/FilmsList.vue'
-</script>
+<!--<script setup lang="ts">-->
+<!--import { useRoute } from 'vue-router'-->
+<!--import {onMounted, ref} from 'vue'-->
+<!--import FilmsList from "@/components/FilmsList.vue";-->
+<!--import {useFilmsStore} from "@/store/films";-->
 
-<template>
-  <div class="catalog">
-    <FilmsList />
-  </div>
-</template>
+<!--const filmsStore = useFilmsStore()-->
+<!--const route = useRoute()-->
+<!--const currentPage = ref(1)-->
 
-<style lang="scss">
-</style>
+<!--onMounted(() => {-->
+<!--  filmsStore.fetchFilms(currentPage.value)-->
+<!--})-->
+<!--</script>-->
+
+<!--<template>-->
+<!--  <FilmsList />-->
+<!--</template>-->
+
+<!--<style lang="scss">-->
+<!--</style>-->

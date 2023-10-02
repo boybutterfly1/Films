@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import {onMounted, ref, watch} from "vue";
-import {computed} from "vue/dist/vue";
+import {ref} from "vue";
 
 interface User {
     id: Number,
