@@ -10,35 +10,12 @@ const filmsStore = useFilmsStore()
 const usersStore = useUsersStore()
 const showSaved = ref(false)
 
-const catalog = computed(() => {
-  if (showSaved.value) {
-    return filmsStore.savedFilms
-  } else {
-    return filmsStore.films
-  }
-})
-
 watch(computed(() => usersStore.isLoggedIn), () => {
 
 })
 </script>
 
 <template>
-  <div class="catalog-options">
-    <div
-        @click="showSaved = false"
-        :class="{ active: !showSaved }"
-    >
-      All
-    </div>
-    <div
-      v-if="usersStore.isLoggedIn"
-      @click="showSaved = true"
-      :class="{ active: showSaved }"
-    >
-      Watch List
-    </div>
-  </div>
       <button class="delete"
         v-if="showSaved && filmsStore.savedFilms.length > 0"
         @click="filmsStore.savedFilms = []"
@@ -46,22 +23,22 @@ watch(computed(() => usersStore.isLoggedIn), () => {
         Delete all
       </button>
 
-  <div v-if="filmsStore.loading===false">
-    <div class="container">
-<!--    <TransitionGroup name="film-list">-->
-      <films-item
-        v-for="film in catalog"
-        :film="film"
-        :key="film.id"
+    <div v-if="filmsStore.loading===false">
+      <div class="container">
+  <!--    <TransitionGroup name="film-list">-->
+        <films-item
+          v-for="film in filmsStore.films"
+          :film="film"
+          :key="film.id"
+        />
+      </div>
+<!--    </TransitionGroup>-->
+      <pagination
+        v-if="!showSaved && filmsStore.loading===false"
+        @changePage="filmsStore.fetchFilms"
+        :totalPages="filmsStore.totalPages"
       />
     </div>
-<!--    </TransitionGroup>-->
-    <pagination
-      v-if="!showSaved && filmsStore.loading===false"
-      @changePage="filmsStore.fetchFilms"
-      :totalPages="filmsStore.totalPages"
-    />
-  </div>
   <loading
    v-else
   />

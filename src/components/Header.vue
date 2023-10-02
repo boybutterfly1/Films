@@ -36,6 +36,7 @@ const usersStore = useUsersStore()
   align-items: center;
   margin-bottom: 20px;
   padding: 25px 15px;
+  gap: 30px;
 }
 .tab {
   padding: 10px 15px;
