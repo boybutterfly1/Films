@@ -9,5 +9,6 @@ export type Film = {
     rating?: number,
     saved: boolean,
     description_full: string,
-    background_image: string
+    background_image: string,
+    userRating?: number,
 }

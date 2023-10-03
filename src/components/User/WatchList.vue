@@ -9,21 +9,19 @@ const filmsStore = useFilmsStore()
 <template>
   <div v-if="filmsStore.loading===false">
     <div class="container">
-      <!--    <TransitionGroup name="film-list">-->
       <films-item
           v-for="film in filmsStore.savedFilms"
           :film="film"
           :key="film.id"
       />
     </div>
-    <!--    </TransitionGroup>-->
   </div>
   <loading
       v-else
   />
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .container {
   position: relative;
   display: flex;

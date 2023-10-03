@@ -5,6 +5,7 @@ import {useFilmsStore} from "@/store/films";
 import {useUsersStore} from "@/store/users";
 import {Film} from "@/types/Film";
 import Loading from "@/components/UI/Loading.vue";
+import RatingStars from "@/components/UI/RatingStars.vue";
 
 const filmsStore = useFilmsStore()
 const usersStore = useUsersStore()
@@ -14,7 +15,6 @@ const film = ref<Film>()
 
 onMounted(async() => {
   film.value = await filmsStore.fetchFilmByID(filmId.value)
-  console.log(film.value)
 })
 
 const saveImg = ref('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABkUlEQVR4nO2aMUvDUBSFq7tdHHRx00U3nfQndHd1dBX8F7o5ujq6OgqCqJNObd45vTcVwUEXBzsW1EhqUkpp9T2aBIr3gwchvHcuN+9LMiS1mjHjCHClZFLqAG5Kb6T0JvgzKmtkVvMHWCOeqO1IIKaWJ2pqBWJqeaKmViCmlidqagVianmiplYgppYnamoFYmp5oqZWIKaWJ2pqBWJqeaKmViCmlidqagVianmiplYg/1Itca4hpOsP5xpF50+FT6GOc2tCXoz5yHkZO7cxbX4h/FZIVesKHCvZS+cI8N4GDtORHmdre/05qvXQ/EIZVyhJkjkB9oR8zRr4EvLssdlcyucAWFTgRICPLONNyYMkSeb/yi+F0UIdckuAu6GP/fcxsD1pfQxsKnCbzxfyISZ3JuWXRl7oKYqWlTwV4DM79yLk/ugVHke6g3G7vSvk82AHgfO41VqpvBEBurnzQh6RXAjNSteka4fuqW7ljeRPIY2i9Wkz4yhaTXdEK/6F4zrkvRCCZO+dtEbR2UatYr4BNPUnHFTG6XcAAAAASUVORK5CYII=')
@@ -24,6 +24,7 @@ const unsaveImg = ref('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAY
 
 <template>
   <div v-if="film" class="container">
+    <div class="film">
       <img class="bg-img" :src="film.background_image" alt="film bg image">
       <img class="film-cover" :src="film.large_cover_image" alt="film cover image"/>
       <div class="film-info">
@@ -37,8 +38,11 @@ const unsaveImg = ref('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAY
         <img v-if="filmsStore.savedFilms.filter(f => f.id === film.id).length !== 0" class="star" :src="unsaveImg" alt="unsave" @click="filmsStore.deleteFromSaved(film.id)"/>
         <img v-if="filmsStore.savedFilms.filter(f => f.id === film.id).length === 0" class="star" :src="saveImg" alt="save" @click="filmsStore.makeSaved(film.id)"/>
       </div>
+    </div>
     <div class="review">
-      Review
+      <rating-stars
+      :film = film
+      />
     </div>
   </div>
   <loading v-else/>
@@ -46,10 +50,14 @@ const unsaveImg = ref('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAY
 
 <style lang="scss" scoped>
 .container {
+  position: relative;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
   max-width: 1000px;
-  margin: 70px auto auto;
+  margin: 70px auto 0;
+  grid-gap: 30px;
+  padding-bottom: 100px;
 }
 .film {
 }
@@ -91,10 +99,10 @@ const unsaveImg = ref('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAY
   position: absolute;
   top: 50px;
   right: 40px;
-  width: 50px;
+  width: 30px;
 }
 .review {
-  width: 800px;
+  width: 1000px;
   height: 600px;
   background-color: #111111;
 }

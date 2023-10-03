@@ -10,6 +10,7 @@ export const useFilmsStore = defineStore('films', {
     currentPage: 1,
     loading: true,
     savedFilms: [] as Film[],
+    ratedFilms: [] as Film[],
   }),
 
   getters: {

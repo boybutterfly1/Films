@@ -21,7 +21,7 @@ const unsaveImg = ref('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAY
   <div
     v-if="filmsStore.loading === false"
     class="film_card"
-    @click="router.push(`/film/${film.id}`); console.log(router)"
+    @click="router.push(`/film/${film.id}`)"
   >
     <div class="cover">
       <img class="cover" :src="props.film.medium_cover_image" alt="film cover image"/>
