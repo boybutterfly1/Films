@@ -41,7 +41,8 @@ const unsaveImg = ref('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAY
     </div>
     <div class="review">
       <rating-stars
-      :film = film
+        v-if="usersStore.isLoggedIn"
+        :film = film
       />
     </div>
   </div>

@@ -9,8 +9,10 @@ const props = defineProps<{
 }>()
 
 onMounted(() => {
-  if (props.film.userRating) {
-    selectedStar.value = props.film.userRating
+  const film = filmsStore.ratedFilms.find(f => props.film.id === f.id)
+  if (film != undefined) {
+    selectedStar.value = film.userRating - 1
+    rating.value = film.userRating
   }
 })
 const filmsStore = useFilmsStore()
@@ -39,7 +41,11 @@ const selectStar = async (index: number) => {
   props.film.userRating = rating.value
   if (filmsStore.ratedFilms.filter(f => f.id === props.film.id).length === 0) {
     filmsStore.ratedFilms.push(props.film)
-    filmsStore.savedFilms.find(f => f.id === props.film.id).userRating = rating.value
+    const savedFilm = filmsStore.savedFilms.find(f => f.id === props.film.id)
+    if (savedFilm != undefined) {
+      savedFilm.userRating = rating.value
+    }
+
   }
 }
 
@@ -58,7 +64,7 @@ const selectStar = async (index: number) => {
         <img :src="index <= hoveredStar || index <= selectedStar ? activeStar : emptyStar" alt="star">
       </div>
     </div>
-    <span style="margin-left: 30px">Your Rating: {{rating}}</span>
+    <span>Your Rating: {{rating}}</span>
   </div>
 </template>
 
@@ -66,6 +72,10 @@ const selectStar = async (index: number) => {
 .rating {
   display: flex;
   align-items: center;
+}
+.rating span {
+  margin-left: 30px;
+  width: 130px;
 }
 .stars {
   display: inline-block;
