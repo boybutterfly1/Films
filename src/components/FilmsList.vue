@@ -39,21 +39,10 @@ watch(computed(() => usersStore.isLoggedIn), () => {
         :totalPages="filmsStore.totalPages"
       />
     </div>
-  <loading
-   v-else
-  />
-
+  <loading v-else />
 </template>
 
 <style lang="scss" scoped>
-.catalog-options {
-  display: flex;
-  width: 200px;
-  justify-content: space-between;
-  align-items: center;
-  margin: auto auto 20px;
-  cursor: pointer;
-}
 .container {
   position: relative;
   display: flex;

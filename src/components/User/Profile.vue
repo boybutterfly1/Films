@@ -19,7 +19,7 @@ const usersStore = useUsersStore()
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .profile {
   display: flex;
   justify-content: center;

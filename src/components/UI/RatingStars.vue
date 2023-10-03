@@ -1,22 +1,36 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch, computed} from "vue";
 import {useFilmsStore} from "@/store/films";
-import {useUsersStore} from "@/store/users";
 import {Film} from "@/types/Film";
 
+const filmsStore = useFilmsStore()
 const props = defineProps<{
   film: Film
 }>()
 
 onMounted(() => {
-  const film = filmsStore.ratedFilms.find(f => props.film.id === f.id)
-  if (film != undefined) {
-    selectedStar.value = film.userRating - 1
-    rating.value = film.userRating
+  console.log('onMounted')
+  const film = ref(filmsStore.ratedFilms.find(f => props.film.id === f.id))
+  if (film.value !== undefined) {
+    selectedStar.value = film.value.userRating !== undefined ? film.value.userRating - 1 : 0
+    rating.value = film.value.userRating !== undefined ? film.value.userRating : 0
   }
 })
-const filmsStore = useFilmsStore()
-const usersStore = useUsersStore()
+
+const ratedFilmsLength = computed( () => {
+  return filmsStore.ratedFilms.length
+})
+const mount = () => {
+  console.log('mount')
+  const film = ref(filmsStore.ratedFilms.find(f => props.film.id === f.id))
+  if (film.value !== undefined) {
+    selectedStar.value = film.value.userRating !== undefined ? film.value.userRating - 1 : 0
+    rating.value = film.value.userRating !== undefined ? film.value.userRating : 0
+  }
+}
+watch(ratedFilmsLength, () => {
+  mount()
+})
 
 const rating = ref()
 const emptyStar = ref('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFGklEQVR4nO1aWYhcRRQtTdziEncxLkjABQ1+iIoLLh+Cmg/FFfwwahS/NAZF8hOJfwY3cCNEA4kLBKIIMRhxSzsBRaVxxsl759StN83okDEaMWoCJjHLk1tz39DOZKY75nWnGzxQ0Lyqd27delV3q3bufzRGnueHCvlFIHv0t+tWSJreEMhcm/523YpAriwU0d+uG5EkyYkCbBdgt7UdAE5y3QYh58UvAawV4KO4vch5rtsQyF7bUncE8k5Tqt91E0heahP/NYRwRJIkhwvwiz7TPtctEGCJKfJ88SyQL8TtBSxx3YChoaGjhPw9KpIkFxbPvfcXCLBXgD+Gq9VprtMhwBxb+S/H9ZFfWd8c1+kIZI8d8rnj+tL0QevrcZ0MAOfp9gnkNpLHju1PkuSYAGxVZXSruU6FkIttxd+YZMwy8ynPuE5EpVKZGoBhs1ZXTDQuA640RX6uVquHuU5D5v2tpgQbjRUy1bEZeYvrNAjwQdz7wOMNx5JPmPVa7dqJ4Wp1WgjhFBGZmQGXSJpeK2k6O/P+LiEfFvLJQO4K5E4d14hPx8Sx5C59VzkiV5rOVu4oQ2Smjmva52Rpem8gVwjwXiA/DcA3+umF/EHILQLsqQvFJ20CrGp2cQR4dz9498S5jMwp1TnqXG3OK1QHJdzcBNH2GDcBNSG/C+R6i2pXBfJ1IV8MwCIApzerCMkZ+k58VzmUC1ir3FEGUFOZUXbj+W3WQ3qThg12ULdm3t89AMwiec6P/f0n5Hk+xR1k5Hk+Reeic9K56RwLf6RzVx3iwIE0PTcAKCLWjLzedSgy8iohN5kJz+rjuYgQwnGF5YmHEHjEdRg88JAZCVXiY/1KE37COu+sbWknOK1KpTJ17Lz0WcMXBbhHgL/spfUDAwOnuoOY+wfyMzsPOwL5wH4RRFtODtm5qekhc20GyfMD4G1Bf5os9GlENCOQXxvRNgFuc22CqHM0a6rmuJYkZx8QoebcAVhun3av7tVWVg3zPD8kAAvqHPHKUjNKDSMsDIkevK+v72hXMgYHB48U4G2TsVsVcq2A9/7m0Xyc7M02bDirLG7lClZCUhkqy7XtAALLy+LVmCmMcHqVURZvI6GvmNBFpXECi4zz5bI4mxFKy7uvLotTucKIInDtgJnkGGCW6fWj9wb+jNwhnOlaDQHuswO5pnRuck3b6l5CvmVfZH7Z3AGYbxbxzbK59yVsowprRcgyAMyyRRpWx+haBY39bVttakaQmlG9G9HWTEEuV6+uMdWYunHLLm/U+zZR41owJk39W8MbvWKYVAbwji3Wo6UrUCdktU1qwlBaRC4PwPd1sdmy2EZKqfGyR8dM+D55f0tLRWYeYzS6r9DErhMWxxjJQv/6m1xJ02sK/2MB4VKtBY9TROSMVpj3caVODSHG9gXgOiFDkSYH4KV9BZWm7NNFuhqAwYy8cRwfKY1Kr/8ZAXjKJvpq8Wywt/d4Xdm6bdPnvb+sEZf3/uIAfFtfD/Pen1z0C/manZOFpSti/2DIi+QqVgbtXlDTYl3p/dkK0SCQj2nCZgr9pqlClAXcbryVUpXQxEbzZd3/WZpeFMj366zR+gOJVrU0KuQndXwf6hezs7az1LxHC2DFyo8WxsgteitVhuMy/zHXOONBL4ofo8W3MhCA5/5VoiTXqHVxJaPW33/aaAhUNODZ0gQIsM5IN+o9iGvHXQtGQqEAfF4asZnXhbVabbprE2q12nSVqbLbJbMj8A8Oaqfo4EiAVQAAAABJRU5ErkJggg==')
@@ -45,7 +59,6 @@ const selectStar = async (index: number) => {
     if (savedFilm != undefined) {
       savedFilm.userRating = rating.value
     }
-
   }
 }
 
@@ -81,7 +94,7 @@ const selectStar = async (index: number) => {
   display: inline-block;
 }
 .stars img {
-  width: 30px;
+  width: 25px;
 }
 .star:hover {
   transform: scale(1.2);

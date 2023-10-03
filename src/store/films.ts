@@ -46,12 +46,10 @@ export const useFilmsStore = defineStore('films', {
     makeSaved(id: number) {
       if (this.savedFilms.filter(f => f.id === id).length === 0) {
         this.savedFilms.push(...this.films.filter(f => f.id === id))
-        // this.savedFilms.forEach(f => f.id === id ? f.saved = true : 0)
       }
     },
     deleteFromSaved(id: number) {
       this.savedFilms = this.savedFilms.filter((f: Film) => f.id !== id)
-      // this.films.forEach(f => f.id === id ? f.saved = false : 0)
     }
   }
 })
