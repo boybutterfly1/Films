@@ -66,7 +66,7 @@ const register = () => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .login-form {
   display: flex;
   flex-direction: column;

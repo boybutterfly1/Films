@@ -21,7 +21,7 @@ const selectedComp = ref('watch-list')
   <lists v-if="selectedComp === 'lists'"/>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .user-navbar {
   display: flex;
   justify-content: center;
@@ -33,7 +33,8 @@ const selectedComp = ref('watch-list')
 }
 .user-navbar div {
   cursor: pointer;
-  padding: 5px 10px;
+  padding: 5px 5px;
+  margin-right: 20px;
   border-radius: 5px;
 }
 .user-navbar div:hover {
@@ -42,5 +43,6 @@ const selectedComp = ref('watch-list')
 }
 .user-navbar div.selected {
   color: white;
+  border-bottom: 2px solid #810505;
 }
 </style>

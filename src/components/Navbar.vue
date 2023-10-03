@@ -42,7 +42,8 @@ const usersStore = useUsersStore()
   gap: 30px;
 }
 .tab {
-  padding: 10px 15px;
+  padding: 5px 5px;
+  margin-right: 20px;
   background-color: black;
   border-width: 0;
   color: #a4a0a0;
@@ -59,6 +60,7 @@ const usersStore = useUsersStore()
 .tab.active {
   transition: color 0.2s;
   color: white;
+  border-bottom: 2px solid #810505;
 }
 
 .logo {

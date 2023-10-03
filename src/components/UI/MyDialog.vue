@@ -12,7 +12,7 @@ const props = defineProps<{
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .dialog {
   position: fixed;
   top: 0;

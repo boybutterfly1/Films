@@ -17,18 +17,15 @@ onMounted(async() => {
   console.log(film.value)
 })
 
-const saveImg = ref('https://img.icons8.com/?size=512&id=25157&format=png')
-const unsaveImg = ref('https://img.icons8.com/?size=512&id=26083&format=png')
+const saveImg = ref('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABkUlEQVR4nO2aMUvDUBSFq7tdHHRx00U3nfQndHd1dBX8F7o5ujq6OgqCqJNObd45vTcVwUEXBzsW1EhqUkpp9T2aBIr3gwchvHcuN+9LMiS1mjHjCHClZFLqAG5Kb6T0JvgzKmtkVvMHWCOeqO1IIKaWJ2pqBWJqeaKmViCmlidqagVianmiplYgppYnamoFYmp5oqZWIKaWJ2pqBWJqeaKmViCmlidqagVianmiplYg/1Itca4hpOsP5xpF50+FT6GOc2tCXoz5yHkZO7cxbX4h/FZIVesKHCvZS+cI8N4GDtORHmdre/05qvXQ/EIZVyhJkjkB9oR8zRr4EvLssdlcyucAWFTgRICPLONNyYMkSeb/yi+F0UIdckuAu6GP/fcxsD1pfQxsKnCbzxfyISZ3JuWXRl7oKYqWlTwV4DM79yLk/ugVHke6g3G7vSvk82AHgfO41VqpvBEBurnzQh6RXAjNSteka4fuqW7ljeRPIY2i9Wkz4yhaTXdEK/6F4zrkvRCCZO+dtEbR2UatYr4BNPUnHFTG6XcAAAAASUVORK5CYII=')
+const unsaveImg = ref('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABD0lEQVR4nO2asW0CQRREzw4dOHHgBkicOqMDGqAFF+AKaIEWCGnBAQlEEAGa2b8rAgKIyZCQxVorRIgwMh9z0jzpS5v8Wc3dy+6qStQcA0aRzK4DDN2LuJfgYVTkt+iNUGr5ILUotXyQWpRaPkgtSi0fpBallg9Si1LLB6lFqeWD1KLU8kFqUWr5ILUotXyQWpRaPkgtSi0fLnmyBmwC8FmmnGv3VdeAvZG9xXT6etwD8BKBrgHf9SgCjBPQPLWfgPfyQ8A9F1kb+ZFzfjyXkXN+SCG0jVzeU5FdUSbG+Hxp1moyeTKyY8D2v4t8mdnbXzPTfN4woH/TIgYMjJylEFrXzk4htEp2uePa2aK6MT9ZEolJX+vodgAAAABJRU5ErkJggg==')
+
 </script>
 
 <template>
-  <div
-      v-if="film"
-      class="container"
-  >
-    <img class="bg-img" :src="film.background_image" alt="film bg image">
-    <div class="film">
-      <img class="film-cover"  :src="film.large_cover_image" alt="film cover image"/>
+  <div v-if="film" class="container">
+      <img class="bg-img" :src="film.background_image" alt="film bg image">
+      <img class="film-cover" :src="film.large_cover_image" alt="film cover image"/>
       <div class="film-info">
         <h3>{{ film.title }}</h3>
         <span>Genres: {{ film.genres.join(', ') }}</span>
@@ -40,42 +37,38 @@ const unsaveImg = ref('https://img.icons8.com/?size=512&id=26083&format=png')
         <img v-if="filmsStore.savedFilms.filter(f => f.id === film.id).length !== 0" class="star" :src="unsaveImg" alt="unsave" @click="filmsStore.deleteFromSaved(film.id)"/>
         <img v-if="filmsStore.savedFilms.filter(f => f.id === film.id).length === 0" class="star" :src="saveImg" alt="save" @click="filmsStore.makeSaved(film.id)"/>
       </div>
+    <div class="review">
+      Review
     </div>
   </div>
-  <loading
-      v-else
-  />
+  <loading v-else/>
 </template>
 
 <style lang="scss" scoped>
 .container {
-  position: relative;
+  display: flex;
+  flex-direction: column;
   max-width: 1000px;
   margin: 70px auto auto;
 }
+.film {
+}
 .bg-img {
-  display: block;
   width: 100%;
-  height: auto;
+  height: 600px;
   border-radius: 6px;
   object-fit: cover;
-  filter: brightness(50%);
-}
-.film {
-  display: flex;
-  top: 0;
-  left: 0;
-  z-index: 1;
+  filter: brightness(40%);
 }
 .film-cover {
   position: absolute;
-  width: 300px;
+  height: 450px;
   top: 50px;
   left: -50px;
   border-radius: 6px;
 }
 .film-info {
-  width: 650px;
+  width: 600px;
   flex-direction: column;
   position: absolute;
   top: 50px;
@@ -93,12 +86,16 @@ const unsaveImg = ref('https://img.icons8.com/?size=512&id=26083&format=png')
 .film-info span {
   font-size: 16px;
   margin-bottom: 25px;
-  font-weight: normal;
 }
 .star {
   position: absolute;
   top: 50px;
-  left: 920px;
+  right: 40px;
   width: 50px;
+}
+.review {
+  width: 800px;
+  height: 600px;
+  background-color: #111111;
 }
 </style>
