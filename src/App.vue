@@ -18,7 +18,7 @@ onMounted(async () => {
   }
 
   const loginLocalStorage = ref(localStorage.getItem('isLogged'))
-  if (JSON.parse(String(loginLocalStorage.value))) {
+  if (JSON.parse(String(loginLocalStorage.value)) === true) {
     usersStore.isLoggedIn = JSON.parse(String(loginLocalStorage.value))
   }
 })

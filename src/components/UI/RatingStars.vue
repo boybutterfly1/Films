@@ -13,23 +13,37 @@ onMounted(() => {
   const film = ref(filmsStore.ratedFilms.find(f => props.film.id === f.id))
   if (film.value !== undefined) {
     selectedStar.value = film.value.userRating !== undefined ? film.value.userRating - 1 : 0
-    rating.value = film.value.userRating !== undefined ? film.value.userRating : 0
+    rating.value = film.value.userRating !== undefined ? film.value.userRating : undefined
   }
 })
 
 const ratedFilmsLength = computed( () => {
   return filmsStore.ratedFilms.length
 })
-const mount = () => {
-  console.log('mount')
+const ratedFilmsOrderChanged = computed( () => {
+  return filmsStore.ratedFilmsOrderChanged
+})
+const mount1 = () => {
+  console.log('mount1')
   const film = ref(filmsStore.ratedFilms.find(f => props.film.id === f.id))
   if (film.value !== undefined) {
     selectedStar.value = film.value.userRating !== undefined ? film.value.userRating - 1 : 0
-    rating.value = film.value.userRating !== undefined ? film.value.userRating : 0
+    rating.value = film.value.userRating !== undefined ? film.value.userRating : undefined
+  }
+}
+const mount2 = () => {
+  console.log('mount2')
+  const film = ref(filmsStore.ratedFilms.find(f => props.film.id === f.id))
+  if (film.value !== undefined) {
+    selectedStar.value = film.value.userRating !== undefined ? film.value.userRating - 1 : 0
+    rating.value = film.value.userRating !== undefined ? film.value.userRating : undefined
   }
 }
 watch(ratedFilmsLength, () => {
-  mount()
+  mount1()
+})
+watch(ratedFilmsOrderChanged, () => {
+  mount2()
 })
 
 const rating = ref()
