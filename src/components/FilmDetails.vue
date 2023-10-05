@@ -3,7 +3,7 @@ import { useRoute} from "vue-router";
 import {computed, onMounted, ref} from "vue";
 import {useFilmsStore} from "@/store/films";
 import {useUsersStore} from "@/store/users";
-import {Film} from "@/types/Film";
+import {Film} from "@/types/types";
 import Loading from "@/components/UI/Loading.vue";
 import RatingStars from "@/components/UI/RatingStars.vue";
 

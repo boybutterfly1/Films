@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Film } from '@/types/Film'
+import { Film } from '@/types/types'
 import { ref } from 'vue'
 import { useFilmsStore } from '@/store/films'
 import { useUsersStore } from "@/store/users";

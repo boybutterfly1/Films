@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { Film } from '@/types/Film'
+import { Film, List } from '@/types/types'
 import apiFilms from '@/api/films'
 
 export const useFilmsStore = defineStore('films', {
@@ -12,11 +12,8 @@ export const useFilmsStore = defineStore('films', {
     savedFilms: [] as Film[],
     ratedFilms: [] as Film[],
     ratedFilmsOrderChanged: false,
-    filmsLists: [
-      {name: 'List 1', films: [{img: 'https://yts.mx/assets/images/movies/saturday_night_and_sunday_morning_1960/medium-cover.jpg'}, {img: 'https://yts.mx/assets/images/movies/fugue_2_2018/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/the_reunion_2_2022/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/saturday_night_and_sunday_morning_1960/medium-cover.jpg'}, {img: 'https://yts.mx/assets/images/movies/fugue_2_2018/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/the_reunion_2_2022/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/saturday_night_and_sunday_morning_1960/medium-cover.jpg'}, {img: 'https://yts.mx/assets/images/movies/fugue_2_2018/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/the_reunion_2_2022/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/saturday_night_and_sunday_morning_1960/medium-cover.jpg'}, {img: 'https://yts.mx/assets/images/movies/fugue_2_2018/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/the_reunion_2_2022/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/saturday_night_and_sunday_morning_1960/medium-cover.jpg'}, {img: 'https://yts.mx/assets/images/movies/fugue_2_2018/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/the_reunion_2_2022/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/saturday_night_and_sunday_morning_1960/medium-cover.jpg'}, {img: 'https://yts.mx/assets/images/movies/fugue_2_2018/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/the_reunion_2_2022/medium-cover.jpg'}]},
-      {name: 'List 2', films: [{img: 'https://yts.mx/assets/images/movies/saturday_night_and_sunday_morning_1960/medium-cover.jpg'}, {img: 'https://yts.mx/assets/images/movies/fugue_2_2018/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/the_reunion_2_2022/medium-cover.jpg'}]},
-      {name: 'List 3', films: [{img: 'https://yts.mx/assets/images/movies/saturday_night_and_sunday_morning_1960/medium-cover.jpg'}, {img: 'https://yts.mx/assets/images/movies/fugue_2_2018/medium-cover.jpg'},{img: 'https://yts.mx/assets/images/movies/the_reunion_2_2022/medium-cover.jpg'}]},
-    ]
+    filmsLists: [] as List[],
+    newListWindowIsOpen: false,
   }),
 
   getters: {

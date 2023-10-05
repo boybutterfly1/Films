@@ -7,6 +7,13 @@ const filmsStore = useFilmsStore()
 </script>
 
 <template>
+  <button
+      class="delete"
+      v-if="filmsStore.savedFilms.length > 0"
+      @click="filmsStore.savedFilms = []"
+  >
+    Clear Watch List
+  </button>
   <div v-if="filmsStore.loading===false">
     <div class="container">
       <films-item

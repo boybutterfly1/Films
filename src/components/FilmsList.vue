@@ -7,20 +7,10 @@ import {computed, onMounted, ref, watch} from 'vue';
 import Loading from "@/components/UI/Loading.vue";
 
 const filmsStore = useFilmsStore()
-const usersStore = useUsersStore()
-const showSaved = ref(false)
 
 </script>
 
 <template>
-      <button
-        class="delete"
-        v-if="showSaved && filmsStore.savedFilms.length > 0"
-        @click="filmsStore.savedFilms = []"
-      >
-        Delete all
-      </button>
-
     <div v-if="filmsStore.loading===false">
       <div class="container">
   <!--    <TransitionGroup name="film-list">-->
@@ -32,7 +22,7 @@ const showSaved = ref(false)
       </div>
 <!--    </TransitionGroup>-->
       <pagination
-        v-if="!showSaved && filmsStore.loading===false"
+        v-if="filmsStore.loading===false"
         @changePage="filmsStore.fetchFilms"
         :totalPages="filmsStore.totalPages"
       />

@@ -37,7 +37,7 @@ const usersStore = useUsersStore()
 <!--      <button v-if="usersStore.isLoggedIn" @click="">{{usersStore.currentUser.name}}</button>-->
       <button
         v-if="!usersStore.isLoggedIn"
-        @click="usersStore.isOpen = true"
+        @click="usersStore.logRegWindowIsOpen = true"
       >
         Login
       </button>
@@ -48,7 +48,7 @@ const usersStore = useUsersStore()
         Logout
       </button>
     </div>
-    <MyDialog :isOpen="usersStore.isOpen" @close="usersStore.isOpen = false">
+    <MyDialog :isOpen="usersStore.logRegWindowIsOpen" @close="usersStore.logRegWindowIsOpen = false">
       <RegistrationForm/>
     </MyDialog>
   </div>
