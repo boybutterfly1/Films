@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {useUsersStore} from "@/store/users";
+import SeenRecently from "@/components/UI/SeenRecently.vue";
 
 const usersStore = useUsersStore()
 </script>
@@ -14,9 +15,7 @@ const usersStore = useUsersStore()
       <span>Total films count: </span>
     </div>
   </div>
-  <div class="watched">
-    <span>Watched recently </span>
-  </div>
+  <seen-recently></seen-recently>
 </template>
 
 <style lang="scss" scoped>
@@ -24,6 +23,7 @@ const usersStore = useUsersStore()
   display: flex;
   justify-content: center;
   gap: 20px;
+  padding: 50px 100px 70px;
 }
 .profile-picture{
   width: 200px;
@@ -32,9 +32,5 @@ const usersStore = useUsersStore()
 .profile-info span {
   display: block;
   margin-bottom: 10px;
-}
-.watched {
-  display: flex;
-  justify-content: center;
 }
 </style>

@@ -27,9 +27,9 @@ const selectedComp = ref('watch-list')
   justify-content: center;
   background-color: #000000;
   color: #a4a0a0;
-  padding: 10px;
+  padding-top: 70px;
+  padding-bottom: 30px;
   gap: 30px;
-  margin-bottom: 20px;
 }
 .user-navbar div {
   cursor: pointer;

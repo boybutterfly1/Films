@@ -38,12 +38,14 @@ const usersStore = useUsersStore()
       <button
         v-if="!usersStore.isLoggedIn"
         @click="usersStore.logRegWindowIsOpen = true"
+        class="logout"
       >
         Login
       </button>
       <button
         v-else
         @click="usersStore.isLoggedIn = false; $router.replace('/catalog/page/1')"
+        class="logout"
       >
         Logout
       </button>
@@ -57,13 +59,17 @@ const usersStore = useUsersStore()
 
 <style lang="scss" scoped>
 .navbar {
-  height: 30px;
+  height: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
   padding: 25px 15px;
   gap: 30px;
+  background-color: black;
+}
+.logout {
+  margin-right: 50px;
 }
 .tab {
   padding: 5px 5px;
@@ -86,11 +92,11 @@ const usersStore = useUsersStore()
   color: white;
   border-bottom: 2px solid #810505;
 }
-
 .logo {
   font-weight: bold;
   font-size: 30px;
   cursor: pointer;
+  margin-left: 30px;
 }
 .btns button {
   padding: 10px 15px;

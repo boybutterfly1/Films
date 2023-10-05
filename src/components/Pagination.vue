@@ -57,7 +57,8 @@ onMounted(() => {
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 70px;
+  padding-top: 50px;
+  padding-bottom: 70px;
   background-color: black;
 }
 

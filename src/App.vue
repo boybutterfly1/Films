@@ -32,7 +32,7 @@ watch(() => {usersStore.isLoggedIn}, () => {
 
 <template>
   <div class="app">
-    <Navbar></Navbar>
+    <Navbar class="navbar"></Navbar>
     <router-view></router-view>
   </div>
 </template>
@@ -48,5 +48,11 @@ watch(() => {usersStore.isLoggedIn}, () => {
   font-family: 'Lato', sans-serif;
   background-color: #000000;
   color: #dad7d7;
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
 }
 </style>

@@ -6,6 +6,8 @@ import {useUsersStore} from "@/store/users";
 import {Film} from "@/types/types";
 import Loading from "@/components/UI/Loading.vue";
 import RatingStars from "@/components/UI/RatingStars.vue";
+import AddToListButton from "@/components/UI/AddToListButton.vue";
+import SeenRecently from "@/components/UI/SeenRecently.vue";
 
 const filmsStore = useFilmsStore()
 const usersStore = useUsersStore()
@@ -22,16 +24,22 @@ const saved = (film: Film):boolean => film.saved
 
 onMounted(async() => {
   film.value = await filmsStore.fetchFilmByID(filmId.value)
+  if (usersStore.seenRecently.length < 5 && film.value && !usersStore.seenRecently.some((f: Film)=> film.value ? f.id === film.value.id : 0)) {
+    usersStore.seenRecently.push(film.value)
+  } else if (usersStore.seenRecently && !usersStore.seenRecently.some((f: Film)=> film.value ? f.id === film.value.id : 0)) {
+    usersStore.seenRecently.pop();
+    usersStore.seenRecently.unshift(film.value)
+  }
 })
 
 </script>
 
 <template>
   <div v-if="film" class="container">
-    <!--    <div class="arrows">-->
-    <!--      <img :src="arrowLeftImg" @click="router.push(`/film/${filmId- 1}`)">-->
-    <!--      <img :src="arrowRightImg" @click="router.push(`/film/${filmId + 1}`)">-->
-    <!--    </div>-->
+<!--        <div class="arrows">-->
+<!--          <img :src="arrowLeftImg" @click="router.push(`/film/${filmId- 1}`)">-->
+<!--          <img :src="arrowRightImg" @click="router.push(`/film/${filmId + 1}`)">-->
+<!--        </div>-->
     <div class="film">
       <img class="bg-img" :src="film.background_image" alt="film bg image">
       <img class="film-cover" :src="film.large_cover_image" alt="film cover image"/>
@@ -55,16 +63,21 @@ onMounted(async() => {
              alt="save"
              @click="filmsStore.makeSaved(film.id)"
         />
+        <add-to-list-button
+          :film-id="film.id"
+        />
       </div>
     </div>
     <div class="review">
       <rating-stars
+          class="raiting"
           v-if="usersStore.isLoggedIn"
           :film = film
       />
     </div>
   </div>
   <loading v-else/>
+  <seen-recently></seen-recently>
 </template>
 
 <style lang="scss" scoped>
@@ -75,10 +88,9 @@ onMounted(async() => {
   flex-wrap: wrap;
   max-width: 1000px;
   margin: 70px auto 0;
-  grid-gap: 30px;
-  padding-bottom: 100px;
 }
 .film {
+  padding-top: 100px;
 }
 .bg-img {
   width: 100%;
@@ -90,7 +102,7 @@ onMounted(async() => {
 .film-cover {
   position: absolute;
   height: 450px;
-  top: 50px;
+  top: 150px;
   left: -50px;
   border-radius: 6px;
 }
@@ -98,7 +110,7 @@ onMounted(async() => {
   width: 600px;
   flex-direction: column;
   position: absolute;
-  top: 50px;
+  top: 150px;
   left: 270px;
   color: white;
   display: flex;
@@ -116,13 +128,17 @@ onMounted(async() => {
 }
 .star {
   position: absolute;
-  top: 50px;
+  top: 150px;
   right: 40px;
   width: 30px;
 }
 .review {
   width: 1000px;
-  height: 600px;
+  min-height: 150px;
   background-color: #111111;
+  border-radius: 6px;
+}
+.rating {
+  padding: 20px;
 }
 </style>

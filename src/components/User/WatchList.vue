@@ -2,6 +2,7 @@
 import Loading from "@/components/UI/Loading.vue";
 import FilmsItem from "@/components/FilmsItem.vue";
 import {useFilmsStore} from "@/store/films";
+import SeenRecently from "@/components/UI/SeenRecently.vue";
 
 const filmsStore = useFilmsStore()
 </script>
@@ -26,6 +27,7 @@ const filmsStore = useFilmsStore()
   <loading
       v-else
   />
+  <seen-recently></seen-recently>
 </template>
 
 <style lang="scss" scoped>
@@ -35,6 +37,7 @@ const filmsStore = useFilmsStore()
   flex-wrap: wrap;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 30px;
-  justify-content: center
+  justify-content: center;
+  padding: 50px 100px 70px;
 }
 </style>

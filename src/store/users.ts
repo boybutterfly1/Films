@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import {ref} from "vue";
-import {User} from "@/types/types";
+import {Film, User} from "@/types/types";
 
 export const useUsersStore = defineStore('users', () => {
     const Admin = ref({
@@ -10,6 +10,7 @@ export const useUsersStore = defineStore('users', () => {
         password: '123',
         regDate: '00.00.0000'
     })
+    const seenRecently = ref<Film[]>([]);
     const users = ref<User[]>([
         Admin.value
     ])
@@ -41,6 +42,7 @@ export const useUsersStore = defineStore('users', () => {
         isLoggedIn,
         logRegWindowIsOpen,
         currentUser,
+        seenRecently,
         registerUser,
         loginUser
     }

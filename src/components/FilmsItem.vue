@@ -44,7 +44,7 @@ const unsaveImg = ref('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAY
 .film_card {
   display: flex;
   flex-direction: row;
-  width: 300px;
+  width: 270px;
   height: 200px;
   box-sizing: border-box;
   position: relative;

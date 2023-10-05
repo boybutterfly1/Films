@@ -5,6 +5,7 @@ import FilmsItem from '@/components/FilmsItem.vue'
 import Pagination from '@/components/Pagination.vue'
 import {computed, onMounted, ref, watch} from 'vue';
 import Loading from "@/components/UI/Loading.vue";
+import SeenRecently from "@/components/UI/SeenRecently.vue";
 
 const filmsStore = useFilmsStore()
 
@@ -28,6 +29,7 @@ const filmsStore = useFilmsStore()
       />
     </div>
   <loading v-else />
+  <seen-recently></seen-recently>
 </template>
 
 <style lang="scss" scoped>
@@ -37,7 +39,8 @@ const filmsStore = useFilmsStore()
   flex-wrap: wrap;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 30px;
-  justify-content: center
+  justify-content: center;
+  padding: 100px 100px 0;
 }
 div.active {
   text-decoration: underline;
