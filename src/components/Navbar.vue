@@ -17,12 +17,36 @@ const usersStore = useUsersStore()
     </div>
     <div class="btns">
 <!--      <router-link :to="`/catalog/page/${1}`" exact class="tab" active-class="active" @click="console.log(route)">Catalog</router-link>-->
-      <router-link :to="`/catalog/page/${1}`" exact class="tab" :class="{'active': route.path.includes('catalog')}">Catalog</router-link>
+      <router-link
+        :to="`/catalog/page/${1}`"
+        exact class="tab"
+        :class="{'active': route.path.includes('catalog')}"
+      >
+        Catalog
+      </router-link>
 <!--      <button @click="$router.replace('/catalog')">Catalog</button>-->
-      <router-link v-if="usersStore.isLoggedIn" :to="`/user/${usersStore.currentUser.id}`" exact class="tab" active-class="active">{{usersStore.currentUser.name}}</router-link>
+      <router-link
+        v-if="usersStore.isLoggedIn"
+        :to="`/user/${usersStore.currentUser.id}`"
+        exact
+        class="tab"
+        active-class="active"
+      >
+        {{usersStore.currentUser.name}}
+      </router-link>
 <!--      <button v-if="usersStore.isLoggedIn" @click="">{{usersStore.currentUser.name}}</button>-->
-      <button v-if="!usersStore.isLoggedIn" @click="usersStore.isOpen = true">Login</button>
-      <button v-else @click="usersStore.isLoggedIn = false; $router.replace('/catalog/page/1')">Logout</button>
+      <button
+        v-if="!usersStore.isLoggedIn"
+        @click="usersStore.isOpen = true"
+      >
+        Login
+      </button>
+      <button
+        v-else
+        @click="usersStore.isLoggedIn = false; $router.replace('/catalog/page/1')"
+      >
+        Logout
+      </button>
     </div>
     <MyDialog :isOpen="usersStore.isOpen" @close="usersStore.isOpen = false">
       <RegistrationForm/>

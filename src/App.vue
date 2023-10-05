@@ -6,8 +6,6 @@ import Navbar from "@/components/Navbar.vue";
 
 const usersStore = useUsersStore()
 const filmsStore = useFilmsStore()
-const length = computed(() => filmsStore.savedFilms.length)
-const login = computed(() => usersStore.isLoggedIn)
 
 onMounted(async () => {
   await filmsStore.getTotalPages()
@@ -23,13 +21,13 @@ onMounted(async () => {
   }
 })
 
-watch(length, () => {
+watch(() => {filmsStore.savedFilms.length}, () => {
   localStorage.setItem('savedFilms', JSON.stringify(filmsStore.savedFilms))
-})
+}, {deep:true})
 
-watch(login, () => {
+watch(() => {usersStore.isLoggedIn}, () => {
   localStorage.setItem('isLogged', JSON.stringify(usersStore.isLoggedIn))
-}, {immediate: true})
+}, {deep: true})
 </script>
 
 <template>

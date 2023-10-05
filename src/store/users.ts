@@ -9,14 +9,15 @@ interface User {
     regDate: String
 }
 export const useUsersStore = defineStore('users', () => {
+    const Admin = ref({
+        id: 1,
+        name: 'Admin',
+        login: '123',
+        password: '123',
+        regDate: '13.02.2000'
+    })
     const users = ref<User[]>([
-        {
-            id: 1,
-            name: 'Admin',
-            login: '123',
-            password: '123',
-            regDate: '13.02.2000'
-        }
+        Admin.value
     ])
     const isLoggedIn = ref(false)
     const isOpen = ref(false)
@@ -26,7 +27,7 @@ export const useUsersStore = defineStore('users', () => {
         isOpen.value = false
         currentUser.value = user
     }
-    const currentUser = ref()
+    const currentUser = ref<User | null>(Admin.value)
 
     const loginUser = (login: String, password: String) => {
         if (login && password) {

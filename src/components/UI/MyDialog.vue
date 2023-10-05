@@ -5,9 +5,16 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="dialog" v-if="isOpen" @click="$emit('close')">
-    <div class="dialog-content" @click.stop>
-      <slot></slot>
+  <div
+      class="dialog"
+      v-if="isOpen"
+      @click="$emit('close')"
+  >
+    <div
+        class="dialog-content"
+        @click.stop
+    >
+      <slot/>
     </div>
   </div>
 </template>

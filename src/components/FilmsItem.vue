@@ -28,7 +28,7 @@ const unsaveImg = ref('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAY
     </div>
     <div class="film_info">
       <h3>{{ film.title }}</h3>
-      <span>Genres: {{ film.genres.join(', ') }}</span>
+      <span v-if="film.genres">Genres: {{ film.genres.join(', ') }}</span>
       <span>Year: {{ film.year }}</span>
       <span>Rating: {{ film.rating }}</span>
     </div>

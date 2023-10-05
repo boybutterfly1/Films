@@ -10,13 +10,11 @@ const filmsStore = useFilmsStore()
 const usersStore = useUsersStore()
 const showSaved = ref(false)
 
-watch(computed(() => usersStore.isLoggedIn), () => {
-
-})
 </script>
 
 <template>
-      <button class="delete"
+      <button
+        class="delete"
         v-if="showSaved && filmsStore.savedFilms.length > 0"
         @click="filmsStore.savedFilms = []"
       >
@@ -54,7 +52,6 @@ watch(computed(() => usersStore.isLoggedIn), () => {
 div.active {
   text-decoration: underline;
 }
-
 //.film-list-item {
 //  display: inline-block;
 //  margin-right: 10px;
