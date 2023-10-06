@@ -5,7 +5,7 @@ const usersStore = useUsersStore()
 </script>
 
 <template>
-  <div class="watched">
+  <div v-if="usersStore.seenRecently.length > 0" class="watched">
     <span>Seen recently</span>
     <div class="seen-container">
       <img

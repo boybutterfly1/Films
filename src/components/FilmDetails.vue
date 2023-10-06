@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute} from "vue-router";
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, onUnmounted, ref} from "vue";
 import {useFilmsStore} from "@/store/films";
 import {useUsersStore} from "@/store/users";
 import {Film} from "@/types/types";
@@ -24,11 +24,13 @@ const saved = (film: Film):boolean => film.saved
 
 onMounted(async() => {
   film.value = await filmsStore.fetchFilmByID(filmId.value)
+})
+onUnmounted(() => {
   if (usersStore.seenRecently.length < 5 && film.value && !usersStore.seenRecently.some((f: Film)=> film.value ? f.id === film.value.id : 0)) {
     usersStore.seenRecently.push(film.value)
   } else if (usersStore.seenRecently && !usersStore.seenRecently.some((f: Film)=> film.value ? f.id === film.value.id : 0)) {
     usersStore.seenRecently.pop();
-    usersStore.seenRecently.unshift(film.value)
+    film.value ? usersStore.seenRecently.unshift(film.value) : 0
   }
 })
 
@@ -64,7 +66,8 @@ onMounted(async() => {
              @click="filmsStore.makeSaved(film.id)"
         />
         <add-to-list-button
-          :film-id="film.id"
+            class="add-to-list"
+            :film-id="film.id"
         />
       </div>
     </div>
@@ -129,8 +132,14 @@ onMounted(async() => {
 .star {
   position: absolute;
   top: 150px;
-  right: 40px;
+  right: 70px;
   width: 30px;
+  cursor: pointer;
+}
+.add-to-list {
+  position: absolute;
+  top: 150px;
+  right: 30px;
 }
 .review {
   width: 1000px;

@@ -86,7 +86,7 @@ onMounted(() => {
         <img :src="star <= hoveredStar || star <= selectedStar ? activeStar : emptyStar" alt="star">
       </div>
     </div>
-    <span>Your Rating: {{rating}}</span>
+    <div class="rating-number">{{rating}}</div>
   </div>
 </template>
 
@@ -95,9 +95,15 @@ onMounted(() => {
   display: flex;
   align-items: center;
 }
-.rating span {
-  margin-left: 30px;
-  width: 130px;
+.rating-number {
+  justify-content: center;
+  align-items: center;
+  margin-left: 15px;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  font-size: 25px;
+  font-weight: bold;
 }
 .stars {
   display: inline-block;

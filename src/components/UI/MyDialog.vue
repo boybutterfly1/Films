@@ -37,6 +37,5 @@ const props = defineProps<{
   background-color: #39393d;
   padding: 20px;
   border-radius: 5px;
-  justify-content: center;
 }
 </style>

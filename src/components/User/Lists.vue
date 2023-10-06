@@ -17,7 +17,7 @@ const newList = ref<List>({
 })
 const createList = () => {
   if (newList.value.name) {
-    filmsStore.filmsLists.push({...newList.value})
+    filmsStore.filmsLists.unshift({...newList.value})
     filmsStore.newListWindowIsOpen = false
   }
   newList.value.name = ''
@@ -150,8 +150,7 @@ onUnmounted(() => {
   outline: none;
 }
 .new-list button {
-  margin-top: 5px;
-  margin-bottom: 15px;
+  margin-top: 15px;
   padding: 10px 15px;
   color: #dcd5d5;
   background-color: #7a7474;
