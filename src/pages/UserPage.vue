@@ -35,7 +35,7 @@ const selectedComp = ref('watch-list')
   cursor: pointer;
   padding: 5px 5px;
   margin-right: 20px;
-  border-radius: 5px;
+  border-radius: 0px;
 }
 .user-navbar div:hover {
   transition: color 0.2s;

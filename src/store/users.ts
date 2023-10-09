@@ -10,20 +10,19 @@ export const useUsersStore = defineStore('users', () => {
         password: '123',
         regDate: '00.00.0000'
     })
-    const seenRecently = ref<Film[]>([]);
     const users = ref<User[]>([
         Admin.value
     ])
     const isLoggedIn = ref(false)
     const logRegWindowIsOpen = ref(false)
+    const currentUser = ref<User | null>(Admin.value)
+    const seenRecently = ref<Film[]>([]);
     const registerUser = (user: User) => {
         users.value.push(user)
         isLoggedIn.value = true
         logRegWindowIsOpen.value = false
         currentUser.value = user
     }
-    const currentUser = ref<User | null>(Admin.value)
-
     const loginUser = (login: String, password: String) => {
         if (login && password) {
             const user = users.value.filter(user => user.login === login && user.password === password)[0]
@@ -36,7 +35,6 @@ export const useUsersStore = defineStore('users', () => {
             }
         }
     }
-
     return {
         users,
         isLoggedIn,

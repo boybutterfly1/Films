@@ -26,7 +26,7 @@ onMounted(async() => {
   film.value = await filmsStore.fetchFilmByID(filmId.value)
 })
 onUnmounted(() => {
-  if (usersStore.seenRecently.length < 5 && film.value && !usersStore.seenRecently.some((f: Film)=> film.value ? f.id === film.value.id : 0)) {
+  if (usersStore.seenRecently.length < 6 && film.value && !usersStore.seenRecently.some((f: Film)=> film.value ? f.id === film.value.id : 0)) {
     usersStore.seenRecently.push(film.value)
   } else if (usersStore.seenRecently && !usersStore.seenRecently.some((f: Film)=> film.value ? f.id === film.value.id : 0)) {
     usersStore.seenRecently.pop();

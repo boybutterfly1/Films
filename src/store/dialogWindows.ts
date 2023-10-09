@@ -4,7 +4,9 @@ import {User} from "@/types/types";
 
 export const useDialogWindows = defineStore('dialogs', () => {
     const addToListIsOpen = ref<boolean>(false)
+    const newListWindowIsOpen= ref<boolean>(false)
     return {
-        addToListIsOpen
+        addToListIsOpen,
+        newListWindowIsOpen,
     }
 })

@@ -13,7 +13,6 @@ export const useFilmsStore = defineStore('films', {
     ratedFilms: [] as Film[],
     ratedFilmsOrderChanged: false,
     filmsLists: [] as List[],
-    newListWindowIsOpen: false,
   }),
 
   getters: {

@@ -12,7 +12,7 @@ const usersStore = useUsersStore()
 
 <template>
   <div class="navbar">
-    <div class="logo" @click="router.push('/')">
+    <div class="logo" @click="router.push(`/catalog/page/${1}`)">
       Bebra Films
     </div>
     <div class="btns">

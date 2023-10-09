@@ -14,7 +14,7 @@ const dialogsStore = useDialogWindows()
 const filmsStore = useFilmsStore()
 const film = ref<Film | null>(null)
 
-const isFilmInList = (list: List) => {
+const isFilmInList = (list: List): boolean => {
   return list.films.some((film: Film) => film.id === props.filmId);
 };
 const addToList = (list: List) => {
@@ -36,49 +36,71 @@ const newList = ref<List>({
 const createList = () => {
   if (newList.value.name) {
     filmsStore.filmsLists.unshift({...newList.value})
-    filmsStore.newListWindowIsOpen = false
+    dialogsStore.newListWindowIsOpen = false
   }
   newList.value.name = ''
+}
+const dialogWindowsClose = () => {
+  dialogsStore.newListWindowIsOpen = false
+  dialogsStore.addToListIsOpen = false
 }
 
 onMounted(async() => {
   film.value = await filmsStore.fetchFilmByID(props.filmId)
-  console.log(film.value)
 })
 onUnmounted(() => {
-  dialogsStore.addToListIsOpen = false
-  filmsStore.newListWindowIsOpen = false
+  dialogWindowsClose()
 })
 </script>
 
 <template>
   <div>
-    <img class="more-img" :src="moreSrc" alt="more" @click="dialogsStore.addToListIsOpen = true">
-    <MyDialog :isOpen="dialogsStore.addToListIsOpen" @close="dialogsStore.addToListIsOpen = false">
+    <img
+        class="more-img"
+        :src="moreSrc"
+        alt="more"
+        @click="dialogsStore.addToListIsOpen = true"
+    >
+    <MyDialog
+        :isOpen="dialogsStore.addToListIsOpen"
+        @close="dialogsStore.addToListIsOpen = false"
+    >
       <div class="checkbox-container">
-        <span>Add to list</span>
+        <span class="checkbox-container__span">Add to list</span>
         <div v-for="list in filmsStore.filmsLists" :key="list.id">
-          <input
-              type="checkbox"
-              :checked="isFilmInList(list)"
-              @click="handleCheckbox(list)"
-              :id="'checkbox-' + list.id"
-          >
-          <label :for="'checkbox-' + list.id">{{list.name}}</label>
+          <label class="checkbox-container__label">{{list.name}}
+            <input
+                class="checkbox-container__input"
+                type="checkbox"
+                :checked="isFilmInList(list)"
+                @click="handleCheckbox(list)"
+            >
+          </label>
         </div>
         <button
-            @click="filmsStore.newListWindowIsOpen = true"
+            class="checkbox-container__button"
+            @click="dialogsStore.newListWindowIsOpen = true"
         >
           New list
         </button>
-        <MyDialog :is-open="filmsStore.newListWindowIsOpen" @close="filmsStore.newListWindowIsOpen = false; dialogsStore.addToListIsOpen = false">
+        <MyDialog
+            :is-open="dialogsStore.newListWindowIsOpen"
+            @close="dialogWindowsClose"
+        >
           <div class="new-list">
             <input
+                class="new-list__input"
                 type="text"
-                autofocus placeholder="List Name"
+                autofocus
+                placeholder="List Name"
                 v-model="newList.name"
             >
-            <button @click="createList">Create</button>
+            <button
+                class="new-list__button"
+                @click="createList"
+            >
+              Create
+            </button>
           </div>
         </MyDialog>
       </div>
@@ -86,81 +108,71 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-.more-img {
-  width: 30px;
-  rotate: 90deg;
-  cursor: pointer;
-}
-.checkbox-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.checkbox-container span {
-  margin-bottom: 10px;
-  align-self: center;
-}
-.checkbox-container input {
-  margin-bottom: 7px;
-  cursor: pointer;
-}
-.checkbox-container label {
-  cursor: pointer;
-}
-.checkbox-container button {
-  width: 100%;
-  margin-top: 15px;
-  padding: 8px 15px;
-  color: #dcd5d5;
-  background-color: #7a7474;
-  border-width: 0;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: 'Lato', sans-serif;
-  font-size: 15px;
-  font-weight: bold;
-}
-.checkbox-container button:hover {
-  transition: 0.3s;
-  color: #dcd5d5;
-  background-color: #810505;
-}
-.new-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.new-list input {
-  align-self: center;
-  border-radius: 1px;
-  margin-bottom: 5px;
-  padding: 5px 5px;
-  font-family: 'Lato', sans-serif;
-  font-weight: bold;
-  background-color: #f5f2f2;
-  color: black;
-  border: 1px solid #a4a0a0;
-}
-.new-list input:focus {
-  outline: none;
-}
-.new-list button {
-  margin-top: 15px;
-  padding: 8px 15px;
-  color: #dcd5d5;
-  background-color: #7a7474;
-  border-width: 0;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: 'Lato', sans-serif;
-  font-size: 15px;
-  font-weight: bold;
-}
-.new-list button:hover {
-  transition: 0.3s;
-  color: #dcd5d5;
-  background-color: #810505;
-}
+<style lang="sass" scoped>
+.more-img
+  width: 30px
+  transform: rotate(90deg)
+  cursor: pointer
+
+.checkbox-container
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  &__span
+    margin-bottom: 10px
+    align-self: center
+  &__input
+    margin-bottom: 7px
+    cursor: pointer
+  &__label
+    cursor: pointer
+  &__button
+    width: 100%
+    margin-top: 15px
+    padding: 8px 15px
+    color: #dcd5d5
+    background-color: #7a7474
+    border-width: 0
+    border-radius: 4px
+    cursor: pointer
+    font-family: 'Lato', sans-serif
+    font-size: 15px
+    font-weight: bold
+    &:hover
+      transition: 0.3s
+      color: #dcd5d5
+      background-color: #810505
+
+.new-list
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  &__input
+    align-self: center
+    border-radius: 1px
+    margin-bottom: 5px
+    padding: 5px 5px
+    font-family: 'Lato', sans-serif
+    font-weight: bold
+    background-color: #f5f2f2
+    color: black
+    border: 1px solid #a4a0a0
+    &:focus
+      outline: none
+  &__button
+    margin-top: 15px
+    padding: 8px 15px
+    color: #dcd5d5
+    background-color: #7a7474
+    border-width: 0
+    border-radius: 4px
+    cursor: pointer
+    font-family: 'Lato', sans-serif
+    font-size: 15px
+    font-weight: bold
+    &:hover
+      transition: 0.3s
+      color: #dcd5d5
+      background-color: #810505
 </style>

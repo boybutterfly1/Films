@@ -18,7 +18,7 @@ const usersStore = useUsersStore()
   <seen-recently></seen-recently>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .profile {
   display: flex;
   justify-content: center;
